@@ -505,7 +505,7 @@ data_GULD.taxa20$Artsgruppering <- "Nemertea"
 
 #Creating dataset for analysis using the original 8 groupings
 data_GULDgrouped <- rbind(data_GULD.taxa1, data_GULD.taxa3, data_GULD.taxa4, data_GULD.taxa6,
-                          data_GULD.taxa7, data_GULD.taxa8, data_GULD.taxa11, data_GULD.taxa12)
+                          data_GULD.taxa7, data_GULD.taxa8, data_GULD.taxa11, data_GULD.taxa12)        )
 data_GULDgrouped$BA <- with(data_GULDgrouped, ifelse(Year < 2011, "aBefore","bAfter" ))
 
 data_GULDgrouped2 <- rbind(data_GULD.taxa1, data_GULD.taxa2, data_GULD.taxa3, data_GULD.taxa4,
@@ -585,14 +585,14 @@ data_STBT.taxa20$Artsgruppering <- "Nemertea"
 #Creating dataset for analysis using the original 8 groupings
 data_STBTgrouped <- rbind(data_STBT.taxa1, data_STBT.taxa3, data_STBT.taxa4, data_STBT.taxa6,
                           data_STBT.taxa7, data_STBT.taxa8, data_STBT.taxa11, data_STBT.taxa12)
-data_STBTgrouped$BA <- with(data_STBTgrouped, ifelse(Year < 2011, "aBefore","bAfter" ))
+data_STBTgrouped$BA <- with(data_STBTgrouped, ifelse(Year < 2013, "aBefore","bAfter" ))
 
 data_STBTgrouped2 <- rbind(data_STBT.taxa1, data_STBT.taxa2, data_STBT.taxa3, data_STBT.taxa4,
                            data_STBT.taxa5, data_STBT.taxa6, data_STBT.taxa7, data_STBT.taxa8,
                            data_STBT.taxa9, data_STBT.taxa10, data_STBT.taxa11, data_STBT.taxa12,
                            data_STBT.taxa13, data_STBT.taxa14, data_STBT.taxa15, data_STBT.taxa16,
                            data_STBT.taxa17, data_STBT.taxa18, data_STBT.taxa19, data_STBT.taxa20)
-data_STBTgrouped2$BA <- with(data_STBTgrouped2, ifelse(Year < 2011, "aBefore","bAfter" ))
+data_STBTgrouped2$BA <- with(data_STBTgrouped2, ifelse(Year < 2013, "aBefore","bAfter" ))
 
 write.csv(data_STBTgrouped, "data_STBTgrouped.csv")
 write.csv(data_STBTgrouped2, "data_STBTgrouped2.csv")

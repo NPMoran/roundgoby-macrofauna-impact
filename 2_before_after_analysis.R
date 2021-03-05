@@ -41,7 +41,7 @@ GULD.brms.origtaxa.negbinom <- brm(Count ~
                    family = negbinomial(),
                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(GULD.brms.origtaxa.negbinom)
+#plot(GULD.brms.origtaxa.negbinom)
 summary(GULD.brms.origtaxa.negbinom)
 coef(GULD.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.origtaxa.negbinom)
@@ -52,7 +52,7 @@ GULD.brms.origtaxa.zerinfnb <- brm(Count ~
                                       family = zero_inflated_negbinomial(),
                                       control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                       chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(GULD.brms.origtaxa.zerinfnb)
+#plot(GULD.brms.origtaxa.zerinfnb)
 summary(GULD.brms.origtaxa.zerinfnb)
 coef(GULD.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.origtaxa.zerinfnb)
@@ -64,7 +64,7 @@ STBT.brms.origtaxa.negbinom <- brm(Count ~
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(STBT.brms.origtaxa.negbinom)
+#plot(STBT.brms.origtaxa.negbinom)
 summary(STBT.brms.origtaxa.negbinom)
 coef(STBT.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.origtaxa.negbinom)
@@ -75,7 +75,7 @@ STBT.brms.origtaxa.zerinfnb <- brm(Count ~
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(STBT.brms.origtaxa.zerinfnb)
+#plot(STBT.brms.origtaxa.zerinfnb)
 summary(STBT.brms.origtaxa.zerinfnb)
 coef(STBT.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.origtaxa.zerinfnb)
@@ -95,12 +95,13 @@ data_GULDgrouped$Site <- "GULD"
 data_STBTgrouped$Site <- "STBT"
 data_DUALgrouped <- rbind(data_GULDgrouped, data_STBTgrouped)
 
+
 DUAL.brms.origtaxa.negbinom <- brm(Count ~
                                      1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped, 
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(DUAL.brms.origtaxa.negbinom)
+#plot(DUAL.brms.origtaxa.negbinom)
 summary(DUAL.brms.origtaxa.negbinom)
 coef(DUAL.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(DUAL.brms.origtaxa.negbinom)
@@ -111,7 +112,7 @@ DUAL.brms.origtaxa.zerinfnb <- brm(Count ~
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(DUAL.brms.origtaxa.zerinfnb)
+#plot(DUAL.brms.origtaxa.zerinfnb)
 summary(DUAL.brms.origtaxa.zerinfnb)
 coef(DUAL.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(DUAL.brms.origtaxa.zerinfnb)
@@ -130,7 +131,7 @@ GULD.brms.fulltaxa.negbinom <- brm(Count ~
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(GULD.brms.fulltaxa.negbinom)
+#plot(GULD.brms.fulltaxa.negbinom)
 summary(GULD.brms.fulltaxa.negbinom)
 coef(GULD.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.fulltaxa.negbinom)
@@ -141,7 +142,7 @@ GULD.brms.fulltaxa.zerinfnb <- brm(Count ~
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(GULD.brms.fulltaxa.zerinfnb)
+#plot(GULD.brms.fulltaxa.zerinfnb)
 summary(GULD.brms.fulltaxa.zerinfnb)
 coef(GULD.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.fulltaxa.zerinfnb)
@@ -153,7 +154,7 @@ STBT.brms.fulltaxa.negbinom <- brm(Count ~
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(STBT.brms.fulltaxa.negbinom)
+#plot(STBT.brms.fulltaxa.negbinom)
 summary(STBT.brms.fulltaxa.negbinom)
 coef(STBT.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.fulltaxa.negbinom)
@@ -164,7 +165,7 @@ STBT.brms.fulltaxa.zerinfnb <- brm(Count ~
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(STBT.brms.fulltaxa.zerinfnb)
+#plot(STBT.brms.fulltaxa.zerinfnb)
 summary(STBT.brms.fulltaxa.zerinfnb)
 coef(STBT.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.fulltaxa.zerinfnb)
@@ -189,7 +190,7 @@ DUAL.brms.fulltaxa.negbinom <- brm(Count ~
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(DUAL.brms.fulltaxa.negbinom)
+#plot(DUAL.brms.fulltaxa.negbinom)
 summary(DUAL.brms.fulltaxa.negbinom)
 coef(DUAL.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(DUAL.brms.fulltaxa.negbinom)
@@ -200,7 +201,7 @@ DUAL.brms.fulltaxa.zerinfnb <- brm(Count ~
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(DUAL.brms.fulltaxa.zerinfnb)
+#plot(DUAL.brms.fulltaxa.zerinfnb)
 summary(DUAL.brms.fulltaxa.zerinfnb)
 coef(DUAL.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
 r2_bayes(DUAL.brms.fulltaxa.zerinfnb)
