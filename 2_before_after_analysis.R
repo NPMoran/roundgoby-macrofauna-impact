@@ -9,7 +9,7 @@
 #### 2. Before-after taxa abundance analysis ####
 
 Sys.setenv(LANG = "en")
-library(dplyr); library(brms); library(performance)
+library(dplyr); library(brms); library(performance); library(rstan)
 
 #importing datasets
 data_GULDgrouped <- read.csv("data_GULDgrouped.csv", strip.white=TRUE)
@@ -29,8 +29,8 @@ data_STBTgrouped2$Year <- as.factor(data_STBTgrouped2$Year)
 #preliminary model specifications
 adapt_delta_value <- 0.9999
 max_treedepth_value <- 20
-iterations <- 6000
-burnin <- 3000
+iterations <- 1000
+burnin <- 500
 thinning <- 2
 
 
@@ -41,7 +41,7 @@ GULD.brms.origtaxa.negbinom <- brm(Count ~
                    family = negbinomial(),
                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-#plot(GULD.brms.origtaxa.negbinom)
+plot(GULD.brms.origtaxa.negbinom)
 summary(GULD.brms.origtaxa.negbinom)
 coef(GULD.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.origtaxa.negbinom)
