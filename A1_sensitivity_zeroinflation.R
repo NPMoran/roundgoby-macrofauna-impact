@@ -9,7 +9,7 @@
 #### A1. Sensitivity Analysis -rerunning analysis using zero-inflated negbinomial models ####
 
 Sys.setenv(LANG = "en")
-library(dplyr); library(brms); library(performance); 
+library(dplyr); library(brms); library(performance)
 
 #importing datasets
 data_GULDgrouped <- read.csv("data_GULDgrouped.csv", strip.white=TRUE)
@@ -29,8 +29,8 @@ data_STBTgrouped2$Year <- as.factor(data_STBTgrouped2$Year)
 #preliminary model specifications
 adapt_delta_value <- 0.9999
 max_treedepth_value <- 20
-iterations <- 4000
-burnin <- 1000
+iterations <- 6000
+burnin <- 3000
 thinning <- 2
 
 

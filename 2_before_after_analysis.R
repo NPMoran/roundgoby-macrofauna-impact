@@ -62,24 +62,24 @@ save(STBT.brms.origtaxa.negbinom, file = "./models/STBT.brms.origtaxa.negbinom.R
 
 
 
-###Single model for both sites, using original 8 taxonomic groups
-## - run using negative binomial model, and zero-inflated negative binomial model
-#data_GULDgrouped$Site <- "GULD"
-#data_STBTgrouped$Site <- "STBT"
-#data_DUALgrouped <- rbind(data_GULDgrouped, data_STBTgrouped)
-#
-#DUAL.brms.origtaxa.negbinom <- brm(Count ~
-#                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped, 
-#                                   family = negbinomial(),
-#                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-#                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-##plot(DUAL.brms.origtaxa.negbinom)
-#summary(DUAL.brms.origtaxa.negbinom)
-#coef(DUAL.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
-#r2_bayes(DUAL.brms.origtaxa.negbinom)
-#
-#
-#save(DUAL.brms.origtaxa.negbinom, file = "./models/DUAL.brms.origtaxa.negbinom.RData")
+##Single model for both sites, using original 8 taxonomic groups
+# - run using negative binomial model
+data_GULDgrouped$Site <- "GULD"
+data_STBTgrouped$Site <- "STBT"
+data_DUALgrouped <- rbind(data_GULDgrouped, data_STBTgrouped)
+
+DUAL.brms.origtaxa.negbinom <- brm(Count ~
+                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(DUAL.brms.origtaxa.negbinom)
+summary(DUAL.brms.origtaxa.negbinom)
+coef(DUAL.brms.origtaxa.negbinom, probs = c(0.05, 0.95))
+r2_bayes(DUAL.brms.origtaxa.negbinom)
+
+
+save(DUAL.brms.origtaxa.negbinom, file = "./models/DUAL.brms.origtaxa.negbinom.RData")
 
 
 
@@ -112,22 +112,22 @@ save(STBT.brms.fulltaxa.negbinom, file = "./models/STBT.brms.fulltaxa.negbinom.R
 
 
 
-##Single model for both sites, using updated 20 taxonomic groups
-## - run using negative binomial model, and zero-inflated negative binomial model
-#data_GULDgrouped2$Site <- "GULD"
-#data_STBTgrouped2$Site <- "STBT"
-#data_DUALgrouped2 <- rbind(data_GULDgrouped2, data_STBTgrouped2)
-#
-#DUAL.brms.fulltaxa.negbinom <- brm(Count ~
-#                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped2, 
-#                                   family = negbinomial(),
-#                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-#                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-##plot(DUAL.brms.fulltaxa.negbinom)
-#summary(DUAL.brms.fulltaxa.negbinom)
-#coef(DUAL.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
-#r2_bayes(DUAL.brms.fulltaxa.negbinom)
-#
-#
-#save(DUAL.brms.fulltaxa.negbinom, file = "./models/DUAL.brms.fulltaxa.negbinom.RData")
+#Single model for both sites, using updated 20 taxonomic groups
+# - run using negative binomial model, and zero-inflated negative binomial model
+data_GULDgrouped2$Site <- "GULD"
+data_STBTgrouped2$Site <- "STBT"
+data_DUALgrouped2 <- rbind(data_GULDgrouped2, data_STBTgrouped2)
+
+DUAL.brms.fulltaxa.negbinom <- brm(Count ~
+                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped2, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(DUAL.brms.fulltaxa.negbinom)
+summary(DUAL.brms.fulltaxa.negbinom)
+coef(DUAL.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
+r2_bayes(DUAL.brms.fulltaxa.negbinom)
+
+
+save(DUAL.brms.fulltaxa.negbinom, file = "./models/DUAL.brms.fulltaxa.negbinom.RData")
 
