@@ -64,8 +64,6 @@ nrow(subset(data_STBT, Antal_stk != 0)) #1136 observations, so approx 90% zeros
 
 
 
-
-
 ## Adding species groups for analysis (restructured groupings) ----
 # Including any taxanomic group that was detected in at least 5% of cores
 # Classifications consistent with World Register of Marine Organisms 
@@ -433,7 +431,7 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Nemertini indet.', 'N
 #   Trichoptera indet.
 
 
-#Checking it has worked ----
+#Checking it has worked
 summary(as.factor(data_GULD$Artsgruppering))
 summary(as.factor(data_STBT$Artsgruppering))
 
@@ -508,6 +506,7 @@ data_GULDgrouped <- rbind(data_GULD.taxa1, data_GULD.taxa3, data_GULD.taxa4, dat
                           data_GULD.taxa7, data_GULD.taxa8, data_GULD.taxa11, data_GULD.taxa12)        )
 data_GULDgrouped$BA <- with(data_GULDgrouped, ifelse(Year < 2011, "aBefore","bAfter" ))
 
+#Creating dataset for analysis using the all 20 groupings
 data_GULDgrouped2 <- rbind(data_GULD.taxa1, data_GULD.taxa2, data_GULD.taxa3, data_GULD.taxa4,
                           data_GULD.taxa5, data_GULD.taxa6, data_GULD.taxa7, data_GULD.taxa8,
                           data_GULD.taxa9, data_GULD.taxa10, data_GULD.taxa11, data_GULD.taxa12,
@@ -587,6 +586,7 @@ data_STBTgrouped <- rbind(data_STBT.taxa1, data_STBT.taxa3, data_STBT.taxa4, dat
                           data_STBT.taxa7, data_STBT.taxa8, data_STBT.taxa11, data_STBT.taxa12)
 data_STBTgrouped$BA <- with(data_STBTgrouped, ifelse(Year < 2013, "aBefore","bAfter" ))
 
+#Creating dataset for analysis using the all 20 groupings
 data_STBTgrouped2 <- rbind(data_STBT.taxa1, data_STBT.taxa2, data_STBT.taxa3, data_STBT.taxa4,
                            data_STBT.taxa5, data_STBT.taxa6, data_STBT.taxa7, data_STBT.taxa8,
                            data_STBT.taxa9, data_STBT.taxa10, data_STBT.taxa11, data_STBT.taxa12,
@@ -598,180 +598,4 @@ write.csv(data_STBTgrouped, "data_STBTgrouped.csv")
 write.csv(data_STBTgrouped2, "data_STBTgrouped2.csv")
 
 
-
-
-
-
-
-
-## Adding species groups for analysis (original groupings, OBSOLETE) ----
-
-# I. Amphipoda, [Order] ----
-#   Phylum:	Arthropoda
-#   Subphylum:	Crustacea
-#   Class:	Malacostraca
-
-# - Consists of species/id groups
-#      Microdeutopus gryllotalpa
-#      Gammarus salinus
-#      Corophium insidiosum
-#      Gammarus locusta
-#      Corophium volutator
-#      Ampithoe rubricata
-#      Gammarus sp.
-#      Gammarus inaequicauda
-#      Melita palmata
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Corophium volutator', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Melita palmata', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Corophium volutator', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Melita palmata', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-
-
-# II. Littorinimorpha (small), [Order] small snails generally <10mm are phenotypically very similar so grouped ----
-#   Phylum:	Mollusca
-#   Class:	Gastropoda
-
-# - Consists of species/id groups
-#      Hydrobia sp.
-#      Hydrobia ventrosa
-#      Pusillina sarsi
-#      Hydrobia ulvae
-#      Rissoa membranacea
-#      Potamopyrgus antipodarum
-#      Rissoa sp.
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-
-
-# III. Littorinimorpha (large), [Order] periwinkle separated out from smaller Littorinimorpha due to morphological distinction ----
-#   Phylum:	Mollusca
-#   Class:	Gastropoda
-
-# - Consists of species/id groups
-#      Littorina saxatilis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_STBT$Artsgruppering)
-
-
-# IV.	Neritidae [Family] ----
-#   Phylum:	  Mollusca
-#   Class:	  Gastropoda
-#   Subclass:	Neritimorpha
-#   Order:	  Cycloneritida
-
-# - Consists of species/id groups
-#      Theodoxus fluviatilis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_STBT$Artsgruppering)
-
-
-# V. Cardiidae,[Family] ----
-#   Phylum:	Mollusca
-#   Class:  Bivalvia
-#   Order:  Cardiida
-
-# - Consists of species/id groups
-#      Cerastoderma glaucum
-#      Parvicardium exiguum
-#      Parvicardium hauniense
-#      Cerastoderma edule
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_STBT$Artsgruppering)
-
-
-# VI. Mytilus edulis [Species] ----
-#   Phylum:	Mollusca
-#   Class:	Bivalvia
-#   Order:	Mytilida
-#   Family:	Mytilidae)
-
-# - Consists of species/id groups
-#      Mytilus edulis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Mytilus edulis', 'Mytilus edulis', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Mytilus edulis', 'Mytilus edulis', data_STBT$Artsgruppering)
-
-
-# VII. Nereididae [Family] ----
-#   Phylum:	Annelida
-#   Class:	Polychaeta
-#   Order:	Phyllodocida
-
-# - Consists of species/id groups
-#      Nereididae indet.
-#      Hediste diversicolor
-#      Platynereis dumerilii
-#      Neanthes virens
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Nereididae indet.', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Neanthes virens', 'Nereididae', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Nereididae indet.', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Neanthes virens', 'Nereididae', data_STBT$Artsgruppering)
-
-
-# VII. Spionida [Order] ----
-#   Kingdom:	Animalia
-#   Phylum:	Annelida
-#   Class:	Polychaeta
-
-# - Consists of species/id groups
-#      Polydora cornuta
-#      Pygospio elegans
-#      Spionidae indet.
-#      Marenzelleria viridis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Polydora cornuta', 'Spionida', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Pygospio elegans', 'Spionida', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Spionidae indet.', 'Spionida', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionida', data_GULD$Artsgruppering)
-
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Polydora cornuta', 'Spionida', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Pygospio elegans', 'Spionida', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Spionidae indet.', 'Spionida', data_STBT$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionida', data_GULD$Artsgruppering)
-
-
-#checking it has worked
-summary(as.factor(data_GULD$Artsgruppering))
-summary(as.factor(data_STBT$Artsgruppering))
 
