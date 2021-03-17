@@ -133,7 +133,7 @@ save(DUAL.brms.fulltaxa.negbinom, file = "./models/DUAL.brms.fulltaxa.negbinom.R
 
 
 ##BRMS single taxa models ----
-# I. Amphipoda (Order) ----
+# I. Amphipoda (Order) 
 data_GULDgrouped2.taxa01 <- subset(data_GULDgrouped2, Artsgruppering == "Amphipoda")
 GULD.brms.taxa01.negbinom <- brm(Count ~
                                      1 + BA + (1|Year), data=data_GULDgrouped2.taxa01, 
@@ -160,7 +160,7 @@ save(GULD.brms.taxa01.negbinom, file = "./models/GULD.brms.taxa01.negbinom.RData
 save(STBT.brms.taxa01.negbinom, file = "./models/STBT.brms.taxa01.negbinom.RData")
 
 
-# II. Isopoda (Order) ----
+# II. Isopoda (Order)
 data_GULDgrouped2.taxa02 <- subset(data_GULDgrouped2, Artsgruppering == "Isopoda")
 GULD.brms.taxa02.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa02, 
@@ -187,7 +187,7 @@ save(GULD.brms.taxa02.negbinom, file = "./models/GULD.brms.taxa02.negbinom.RData
 save(STBT.brms.taxa02.negbinom, file = "./models/STBT.brms.taxa02.negbinom.RData")
 
 
-# III. Littorinimorpha (small) (Order) ----
+# III. Littorinimorpha (small) (Order)
 data_GULDgrouped2.taxa03 <- subset(data_GULDgrouped2, Artsgruppering == "Littorinimorpha (small)")
 GULD.brms.taxa03.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa03, 
@@ -214,7 +214,7 @@ save(GULD.brms.taxa03.negbinom, file = "./models/GULD.brms.taxa03.negbinom.RData
 save(STBT.brms.taxa03.negbinom, file = "./models/STBT.brms.taxa03.negbinom.RData")
 
 
-# IV. Littorinimorpha (large) (Order) ----
+# IV. Littorinimorpha (large) (Order)
 data_GULDgrouped2.taxa04 <- subset(data_GULDgrouped2, Artsgruppering == "Littorinimorpha (large)")
 GULD.brms.taxa04.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa04, 
@@ -241,7 +241,7 @@ save(GULD.brms.taxa04.negbinom, file = "./models/GULD.brms.taxa04.negbinom.RData
 save(STBT.brms.taxa04.negbinom, file = "./models/STBT.brms.taxa04.negbinom.RData")
 
 
-# V. Lymnaeidae (Family) ----
+# V. Lymnaeidae (Family)
 data_GULDgrouped2.taxa05 <- subset(data_GULDgrouped2, Artsgruppering == "Lymnaeidae")
 GULD.brms.taxa05.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa05, 
@@ -268,7 +268,7 @@ save(GULD.brms.taxa05.negbinom, file = "./models/GULD.brms.taxa05.negbinom.RData
 save(STBT.brms.taxa05.negbinom, file = "./models/STBT.brms.taxa05.negbinom.RData")
 
 
-# VI. Neritidae [Family] ----
+# VI. Neritidae [Family)
 data_GULDgrouped2.taxa06 <- subset(data_GULDgrouped2, Artsgruppering == "Neritidae")
 GULD.brms.taxa06.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa06, 
@@ -295,7 +295,7 @@ save(GULD.brms.taxa06.negbinom, file = "./models/GULD.brms.taxa06.negbinom.RData
 save(STBT.brms.taxa06.negbinom, file = "./models/STBT.brms.taxa06.negbinom.RData")
 
 
-# VII. Cardiidae,[Family] ----
+# VII. Cardiidae,[Family)
 data_GULDgrouped2.taxa07 <- subset(data_GULDgrouped2, Artsgruppering == "Cardiidae")
 GULD.brms.taxa07.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa07, 
@@ -322,7 +322,7 @@ save(GULD.brms.taxa07.negbinom, file = "./models/GULD.brms.taxa07.negbinom.RData
 save(STBT.brms.taxa07.negbinom, file = "./models/STBT.brms.taxa07.negbinom.RData")
 
 
-# VIII. Mytilidae [Family] ----
+# VIII. Mytilidae [Family)
 data_GULDgrouped2.taxa08 <- subset(data_GULDgrouped2, Artsgruppering == "Mytilidae")
 GULD.brms.taxa08.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa08, 
@@ -349,7 +349,7 @@ save(GULD.brms.taxa08.negbinom, file = "./models/GULD.brms.taxa08.negbinom.RData
 save(STBT.brms.taxa08.negbinom, file = "./models/STBT.brms.taxa08.negbinom.RData")
 
 
-# IX. Tellinidae [Family] ----
+# IX. Tellinidae [Family)
 data_GULDgrouped2.taxa09 <- subset(data_GULDgrouped2, Artsgruppering == "Tellinidae")
 GULD.brms.taxa09.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa09, 
@@ -376,7 +376,7 @@ save(GULD.brms.taxa09.negbinom, file = "./models/GULD.brms.taxa09.negbinom.RData
 save(STBT.brms.taxa09.negbinom, file = "./models/STBT.brms.taxa09.negbinom.RData")
 
 
-# X. Myidae [Family] ----
+# X. Myidae [Family)
 data_GULDgrouped2.taxa10 <- subset(data_GULDgrouped2, Artsgruppering == "Myidae")
 GULD.brms.taxa10.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa10, 
@@ -403,7 +403,7 @@ save(GULD.brms.taxa10.negbinom, file = "./models/GULD.brms.taxa10.negbinom.RData
 save(STBT.brms.taxa10.negbinom, file = "./models/STBT.brms.taxa10.negbinom.RData")
 
 
-# XI. Nereididae [Family] ----
+# XI. Nereididae [Family)
 data_GULDgrouped2.taxa11 <- subset(data_GULDgrouped2, Artsgruppering == "Nereididae")
 GULD.brms.taxa11.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa11, 
@@ -430,7 +430,7 @@ save(GULD.brms.taxa11.negbinom, file = "./models/GULD.brms.taxa11.negbinom.RData
 save(STBT.brms.taxa11.negbinom, file = "./models/STBT.brms.taxa11.negbinom.RData")
 
 
-# XII. Spionidae [Family] ----
+# XII. Spionidae [Family)
 data_GULDgrouped2.taxa12 <- subset(data_GULDgrouped2, Artsgruppering == "Spionidae")
 GULD.brms.taxa12.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa12, 
@@ -457,7 +457,7 @@ save(GULD.brms.taxa12.negbinom, file = "./models/GULD.brms.taxa12.negbinom.RData
 save(STBT.brms.taxa12.negbinom, file = "./models/STBT.brms.taxa12.negbinom.RData")
 
 
-# XIII. Capitellidae [Family] ----
+# XIII. Capitellidae [Family)
 data_GULDgrouped2.taxa13 <- subset(data_GULDgrouped2, Artsgruppering == "Capitellidae")
 GULD.brms.taxa13.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa13, 
@@ -484,7 +484,7 @@ save(GULD.brms.taxa13.negbinom, file = "./models/GULD.brms.taxa13.negbinom.RData
 save(STBT.brms.taxa13.negbinom, file = "./models/STBT.brms.taxa13.negbinom.RData")
 
 
-# XIV. Orbiniidae [Family] ----
+# XIV. Orbiniidae [Family)
 data_GULDgrouped2.taxa14 <- subset(data_GULDgrouped2, Artsgruppering == "Orbiniidae")
 GULD.brms.taxa14.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa14, 
@@ -511,7 +511,7 @@ save(GULD.brms.taxa14.negbinom, file = "./models/GULD.brms.taxa14.negbinom.RData
 save(STBT.brms.taxa14.negbinom, file = "./models/STBT.brms.taxa14.negbinom.RData")
 
 
-# XV. Sabellida [Order] ----
+# XV. Sabellida [Order)
 data_GULDgrouped2.taxa15 <- subset(data_GULDgrouped2, Artsgruppering == "Sabellida")
 GULD.brms.taxa15.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa15, 
@@ -539,7 +539,7 @@ save(STBT.brms.taxa15.negbinom, file = "./models/STBT.brms.taxa15.negbinom.RData
 
 
 
-# XVI. Tubificidae [Family] ----
+# XVI. Tubificidae [Family)
 data_GULDgrouped2.taxa16 <- subset(data_GULDgrouped2, Artsgruppering == "Tubificidae")
 GULD.brms.taxa16.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa16, 
@@ -566,7 +566,7 @@ save(GULD.brms.taxa16.negbinom, file = "./models/GULD.brms.taxa16.negbinom.RData
 save(STBT.brms.taxa16.negbinom, file = "./models/STBT.brms.taxa16.negbinom.RData")
 
 
-# XVII. Chironomidae [Family] ----
+# XVII. Chironomidae [Family)
 data_GULDgrouped2.taxa17 <- subset(data_GULDgrouped2, Artsgruppering == "Chironomidae")
 GULD.brms.taxa17.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa17, 
@@ -593,7 +593,7 @@ save(GULD.brms.taxa17.negbinom, file = "./models/GULD.brms.taxa17.negbinom.RData
 save(STBT.brms.taxa17.negbinom, file = "./models/STBT.brms.taxa17.negbinom.RData")
 
 
-# XVIII. Chrysomelidae [Family] ----
+# XVIII. Chrysomelidae [Family)
 data_GULDgrouped2.taxa18 <- subset(data_GULDgrouped2, Artsgruppering == "Chrysomelidae")
 GULD.brms.taxa18.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa18, 
@@ -620,7 +620,7 @@ save(GULD.brms.taxa18.negbinom, file = "./models/GULD.brms.taxa18.negbinom.RData
 save(STBT.brms.taxa18.negbinom, file = "./models/STBT.brms.taxa18.negbinom.RData")
 
 
-# XIX. Bryozoa [Phylum] ----
+# XIX. Bryozoa [Phylum)
 data_GULDgrouped2.taxa19 <- subset(data_GULDgrouped2, Artsgruppering == "Bryozoa")
 GULD.brms.taxa19.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa19, 
@@ -647,7 +647,7 @@ save(GULD.brms.taxa19.negbinom, file = "./models/GULD.brms.taxa19.negbinom.RData
 save(STBT.brms.taxa19.negbinom, file = "./models/STBT.brms.taxa19.negbinom.RData")
 
 
-# XX. Nemertea [Phylum] ----
+# XX. Nemertea [Phylum)
 data_GULDgrouped2.taxa20 <- subset(data_GULDgrouped2, Artsgruppering == "Nemertea")
 GULD.brms.taxa20.negbinom <- brm(Count ~
                                    1 + BA + (1|Year), data=data_GULDgrouped2.taxa20, 
