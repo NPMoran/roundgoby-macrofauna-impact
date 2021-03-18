@@ -295,6 +295,9 @@ save(GULD.brms.taxa06.negbinom, file = "./models/GULD.brms.taxa06.negbinom.RData
 save(STBT.brms.taxa06.negbinom, file = "./models/STBT.brms.taxa06.negbinom.RData")
 
 
+load("./models/GULD.brms.taxa06.negbinom.RData")
+
+
 # VII. Cardiidae,[Family)
 data_GULDgrouped2.taxa07 <- subset(data_GULDgrouped2, Artsgruppering == "Cardiidae")
 GULD.brms.taxa07.negbinom <- brm(Count ~
@@ -672,4 +675,12 @@ r2_bayes(STBT.brms.taxa20.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa20.negbinom, file = "./models/GULD.brms.taxa20.negbinom.RData")
 save(STBT.brms.taxa20.negbinom, file = "./models/STBT.brms.taxa20.negbinom.RData")
+
+
+
+
+
+
+
+
 
