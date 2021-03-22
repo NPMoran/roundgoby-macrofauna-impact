@@ -30,8 +30,7 @@ library(dplyr); library(brms); library(performance)
 #   Skæl fra artsfælle
 #   Thedoxus fluviatilis
 
-data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Amphipoda', 'Present', 'Absent')
-data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Littorinimorpha (small)', 'Present', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
+data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Littorinimorpha (small)', 'Present', 'Absent')
 data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Littorinimorpha (large)', 'Present', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
 data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Neritidae', 'Present', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
 data_GULDgrouped2$GutPresence <- if_else(data_GULDgrouped2$Artsgruppering == 'Cardiidae', 'Present', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
@@ -58,3 +57,62 @@ fixef(GULD.brms.gutctest.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.gutctest.negbinom, ci = 0.95)
 
 save(GULD.brms.gutctest.negbinom, file = "./models/GULD.brms.gutctest.negbinom.RData")
+
+
+#Separate models
+data=data_GULDgrouped2_Absent <- subset(data_GULDgrouped2, GutPresence == 'Absent')
+
+GULD.brms.guttestA.negbinom <- brm(Count ~
+                                     1 + BA + (1|Artsgruppering) + (1|Year), data=data_GULDgrouped2_Absent, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttestA.negbinom)
+summary(GULD.brms.guttestA.negbinom)
+fixef(GULD.brms.guttestA.negbinom, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttestA.negbinom, ci = 0.95)
+
+save(GULD.brms.guttestA.negbinom, file = "./models/GULD.brms.guttestA.negbinom.RData")
+
+
+save(GULD.brms.guttestA.negbinom, file = "./models/GULD.brms.guttestA.negbinom.RData")
+
+data=data_GULDgrouped2_Present <- subset(data_GULDgrouped2, GutPresence == 'Present')
+
+GULD.brms.guttestB.negbinom <- brm(Count ~
+                                     1 + BA + (1|Artsgruppering) + (1|Year), data=data_GULDgrouped2_Present, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttestB.negbinom)
+summary(GULD.brms.guttestB.negbinom)
+fixef(GULD.brms.guttestB.negbinom, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttestB.negbinom, ci = 0.95)
+
+save(GULD.brms.guttestB.negbinom, file = "./models/GULD.brms.guttestB.negbinom.RData")
+
+
+#Separate models (non-nested)
+GULD.brms.guttestC.negbinom <- brm(Count ~
+                                     1 + BA + (1|Year:Artsgruppering), data=data_GULDgrouped2_Absent, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttestC.negbinom)
+summary(GULD.brms.guttestC.negbinom)
+fixef(GULD.brms.guttestC.negbinom, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttestC.negbinom, ci = 0.95)
+
+
+GULD.brms.guttestD.negbinom <- brm(Count ~
+                                     1 + BA + (1|Year:Artsgruppering), data=data_GULDgrouped2_Present, 
+                                   family = negbinomial(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttestD.negbinom)
+summary(GULD.brms.guttestD.negbinom)
+fixef(GULD.brms.guttestD.negbinom, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttestD.negbinom, ci = 0.95)
+
+
+

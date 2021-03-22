@@ -142,7 +142,7 @@ GULD.brms.taxa01.negbinom <- brm(Count ~
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa01.negbinom)
 summary(GULD.brms.taxa01.negbinom)
-ranef(GULD.brms.taxa01.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa01.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa01.negbinom, ci = 0.95, ci = 0.95)
 
 data_STBTgrouped2.taxa01 <- subset(data_STBTgrouped2, Artsgruppering == "Amphipoda")
@@ -153,7 +153,7 @@ STBT.brms.taxa01.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa01.negbinom)
 summary(STBT.brms.taxa01.negbinom)
-ranef(STBT.brms.taxa01.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa01.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa01.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa01.negbinom, file = "./models/GULD.brms.taxa01.negbinom.RData")
@@ -169,7 +169,7 @@ GULD.brms.taxa02.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.origtaxa.negbinom)
 summary(GULD.brms.taxa02.negbinom)
-ranef(GULD.brms.taxa02.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa02.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa02.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa02 <- subset(data_STBTgrouped2, Artsgruppering == "Isopoda")
@@ -180,7 +180,7 @@ STBT.brms.taxa02.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.origtaxa.negbinom)
 summary(STBT.brms.taxa02.negbinom)
-ranef(STBT.brms.taxa02.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa02.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa02.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa02.negbinom, file = "./models/GULD.brms.taxa02.negbinom.RData")
@@ -196,7 +196,7 @@ GULD.brms.taxa03.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa03.negbinom)
 summary(GULD.brms.taxa03.negbinom)
-ranef(GULD.brms.taxa03.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa03.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa03.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa03 <- subset(data_STBTgrouped2, Artsgruppering == "Littorinimorpha (small)")
@@ -207,7 +207,7 @@ STBT.brms.taxa03.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa03.negbinom)
 summary(STBT.brms.taxa03.negbinom)
-ranef(STBT.brms.taxa03.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa03.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa03.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa03.negbinom, file = "./models/GULD.brms.taxa03.negbinom.RData")
@@ -223,7 +223,7 @@ GULD.brms.taxa04.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa04.negbinom)
 summary(GULD.brms.taxa04.negbinom)
-ranef(GULD.brms.taxa04.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa04.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa04.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa04 <- subset(data_STBTgrouped2, Artsgruppering == "Littorinimorpha (large)")
@@ -234,7 +234,7 @@ STBT.brms.taxa04.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa04.negbinom)
 summary(STBT.brms.taxa04.negbinom)
-ranef(STBT.brms.taxa04.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa04.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa04.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa04.negbinom, file = "./models/GULD.brms.taxa04.negbinom.RData")
@@ -250,7 +250,7 @@ GULD.brms.taxa05.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa05.negbinom)
 summary(GULD.brms.taxa05.negbinom)
-ranef(GULD.brms.taxa05.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa05.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa05.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa05 <- subset(data_STBTgrouped2, Artsgruppering == "Lymnaeidae")
@@ -261,7 +261,7 @@ STBT.brms.taxa05.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa05.negbinom)
 summary(STBT.brms.taxa05.negbinom)
-ranef(STBT.brms.taxa05.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa05.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa05.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa05.negbinom, file = "./models/GULD.brms.taxa05.negbinom.RData")
@@ -277,7 +277,7 @@ GULD.brms.taxa06.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa06.negbinom)
 summary(GULD.brms.taxa06.negbinom)
-ranef(GULD.brms.taxa06.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa06.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa06.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa06 <- subset(data_STBTgrouped2, Artsgruppering == "Neritidae")
@@ -288,7 +288,7 @@ STBT.brms.taxa06.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.origtaxa.negbinom)
 summary(STBT.brms.taxa06.negbinom)
-ranef(STBT.brms.taxa06.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa06.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa06.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa06.negbinom, file = "./models/GULD.brms.taxa06.negbinom.RData")
@@ -307,7 +307,7 @@ GULD.brms.taxa07.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa07.negbinom)
 summary(GULD.brms.taxa07.negbinom)
-ranef(GULD.brms.taxa07.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa07.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa07.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa07 <- subset(data_STBTgrouped2, Artsgruppering == "Cardiidae")
@@ -318,7 +318,7 @@ STBT.brms.taxa07.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.origtaxa.negbinom)
 summary(STBT.brms.taxa07.negbinom)
-ranef(STBT.brms.taxa07.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa07.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa07.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa07.negbinom, file = "./models/GULD.brms.taxa07.negbinom.RData")
@@ -334,7 +334,7 @@ GULD.brms.taxa08.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa08.negbinom)
 summary(GULD.brms.taxa08.negbinom)
-ranef(GULD.brms.taxa08.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa08.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa08.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa08 <- subset(data_STBTgrouped2, Artsgruppering == "Mytilidae")
@@ -345,7 +345,7 @@ STBT.brms.taxa08.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa08.negbinom)
 summary(STBT.brms.taxa08.negbinom)
-ranef(STBT.brms.taxa08.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa08.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa08.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa08.negbinom, file = "./models/GULD.brms.taxa08.negbinom.RData")
@@ -361,7 +361,7 @@ GULD.brms.taxa09.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa09.negbinom)
 summary(GULD.brms.taxa09.negbinom)
-ranef(GULD.brms.taxa09.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa09.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa09.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa09 <- subset(data_STBTgrouped2, Artsgruppering == "Tellinidae")
@@ -372,7 +372,7 @@ STBT.brms.taxa09.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa09.negbinom)
 summary(STBT.brms.taxa09.negbinom)
-ranef(STBT.brms.taxa09.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa09.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa09.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa09.negbinom, file = "./models/GULD.brms.taxa09.negbinom.RData")
@@ -388,7 +388,7 @@ GULD.brms.taxa10.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa10.negbinom)
 summary(GULD.brms.taxa10.negbinom)
-ranef(GULD.brms.taxa10.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa10.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa10.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa10 <- subset(data_STBTgrouped2, Artsgruppering == "Myidae")
@@ -399,7 +399,7 @@ STBT.brms.taxa10.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa10.negbinom)
 summary(STBT.brms.taxa10.negbinom)
-ranef(STBT.brms.taxa10.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa10.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa10.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa10.negbinom, file = "./models/GULD.brms.taxa10.negbinom.RData")
@@ -415,7 +415,7 @@ GULD.brms.taxa11.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa11.negbinom)
 summary(GULD.brms.taxa11.negbinom)
-ranef(GULD.brms.taxa11.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa11.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa11.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa11 <- subset(data_STBTgrouped2, Artsgruppering == "Nereididae")
@@ -426,7 +426,7 @@ STBT.brms.taxa11.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa11.negbinom)
 summary(STBT.brms.taxa11.negbinom)
-ranef(STBT.brms.taxa11.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa11.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa11.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa11.negbinom, file = "./models/GULD.brms.taxa11.negbinom.RData")
@@ -442,7 +442,7 @@ GULD.brms.taxa12.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa12.negbinom)
 summary(GULD.brms.taxa12.negbinom)
-ranef(GULD.brms.taxa12.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa12.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa12.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa12 <- subset(data_STBTgrouped2, Artsgruppering == "Spionidae")
@@ -453,7 +453,7 @@ STBT.brms.taxa12.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa12.negbinom)
 summary(STBT.brms.taxa12.negbinom)
-ranef(STBT.brms.taxa12.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa12.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa12.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa12.negbinom, file = "./models/GULD.brms.taxa12.negbinom.RData")
@@ -469,7 +469,7 @@ GULD.brms.taxa13.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa13.negbinom)
 summary(GULD.brms.taxa13.negbinom)
-ranef(GULD.brms.taxa13.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa13.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa13.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa13 <- subset(data_STBTgrouped2, Artsgruppering == "Capitellidae")
@@ -480,7 +480,7 @@ STBT.brms.taxa13.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa13.negbinom)
 summary(STBT.brms.taxa13.negbinom)
-ranef(STBT.brms.taxa13.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa13.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa13.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa13.negbinom, file = "./models/GULD.brms.taxa13.negbinom.RData")
@@ -496,7 +496,7 @@ GULD.brms.taxa14.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa14.negbinom)
 summary(GULD.brms.taxa14.negbinom)
-ranef(GULD.brms.taxa14.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa14.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa14.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa14 <- subset(data_STBTgrouped2, Artsgruppering == "Orbiniidae")
@@ -507,7 +507,7 @@ STBT.brms.taxa14.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa14.negbinom)
 summary(STBT.brms.taxa14.negbinom)
-ranef(STBT.brms.taxa14.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa14.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa14.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa14.negbinom, file = "./models/GULD.brms.taxa14.negbinom.RData")
@@ -523,7 +523,7 @@ GULD.brms.taxa15.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa15.negbinom)
 summary(GULD.brms.taxa15.negbinom)
-ranef(GULD.brms.taxa15.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa15.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa15.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa15 <- subset(data_STBTgrouped2, Artsgruppering == "Sabellida")
@@ -534,7 +534,7 @@ STBT.brms.taxa15.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa15.negbinom)
 summary(STBT.brms.taxa15.negbinom)
-ranef(STBT.brms.taxa15.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa15.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa15.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa15.negbinom, file = "./models/GULD.brms.taxa15.negbinom.RData")
@@ -551,7 +551,7 @@ GULD.brms.taxa16.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa16.negbinom)
 summary(GULD.brms.taxa16.negbinom)
-ranef(GULD.brms.taxa16.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa16.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa16.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa16 <- subset(data_STBTgrouped2, Artsgruppering == "Tubificidae")
@@ -562,7 +562,7 @@ STBT.brms.taxa16.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa16.negbinom)
 summary(STBT.brms.taxa16.negbinom)
-ranef(STBT.brms.taxa16.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa16.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa16.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa16.negbinom, file = "./models/GULD.brms.taxa16.negbinom.RData")
@@ -578,7 +578,7 @@ GULD.brms.taxa17.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa17.negbinom)
 summary(GULD.brms.taxa17.negbinom)
-ranef(GULD.brms.taxa17.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa17.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa17.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa17 <- subset(data_STBTgrouped2, Artsgruppering == "Chironomidae")
@@ -589,7 +589,7 @@ STBT.brms.taxa17.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa17.negbinom)
 summary(STBT.brms.taxa17.negbinom)
-ranef(STBT.brms.taxa17.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa17.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa17.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa17.negbinom, file = "./models/GULD.brms.taxa17.negbinom.RData")
@@ -605,7 +605,7 @@ GULD.brms.taxa18.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa18.negbinom)
 summary(GULD.brms.taxa18.negbinom)
-ranef(GULD.brms.taxa18.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa18.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa18.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa18 <- subset(data_STBTgrouped2, Artsgruppering == "Chrysomelidae")
@@ -616,7 +616,7 @@ STBT.brms.taxa18.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa18.negbinom)
 summary(STBT.brms.taxa18.negbinom)
-ranef(STBT.brms.taxa18.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa18.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa18.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa18.negbinom, file = "./models/GULD.brms.taxa18.negbinom.RData")
@@ -632,7 +632,7 @@ GULD.brms.taxa19.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa19.negbinom)
 summary(GULD.brms.taxa19.negbinom)
-ranef(GULD.brms.taxa19.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa19.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa19.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa19 <- subset(data_STBTgrouped2, Artsgruppering == "Bryozoa")
@@ -643,7 +643,7 @@ STBT.brms.taxa19.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa19.negbinom)
 summary(STBT.brms.taxa19.negbinom)
-ranef(STBT.brms.taxa19.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa19.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa19.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa19.negbinom, file = "./models/GULD.brms.taxa19.negbinom.RData")
@@ -659,7 +659,7 @@ GULD.brms.taxa20.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.taxa20.negbinom)
 summary(GULD.brms.taxa20.negbinom)
-ranef(GULD.brms.taxa20.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.taxa20.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.taxa20.negbinom, ci = 0.95)
 
 data_STBTgrouped2.taxa20 <- subset(data_STBTgrouped2, Artsgruppering == "Nemertea")
@@ -670,7 +670,7 @@ STBT.brms.taxa20.negbinom <- brm(Count ~
                                  chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.taxa20.negbinom)
 summary(STBT.brms.taxa20.negbinom)
-ranef(STBT.brms.taxa20.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.taxa20.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.taxa20.negbinom, ci = 0.95)
 
 save(GULD.brms.taxa20.negbinom, file = "./models/GULD.brms.taxa20.negbinom.RData")
