@@ -24,18 +24,15 @@ data_ALL <- read.csv("data_ALL.csv", strip.white=TRUE)
 nrow(data_ALL) #70840 data points
 labels(data_ALL) 
 
-
+count(speciesnames_absent, Artsnavn, sort = TRUE)
 
 #Excluding taxa that were not detected in any samples
 speciesnames_absent <- subset(data_ALL, Antal_stk != 0)
-speciesnames_absent <- as.data.frame(summary(speciesnames_absent$Artsnavn, maxsum = 500))
-names(speciesnames_absent)[names(speciesnames_absent) == "summary(speciesnames_absent$Artsnavn, maxsum = 500)"] <- "N_detections"
-speciesnames_absent$Artsnavn <- rownames(speciesnames_absent)
-rownames(speciesnames_absent) <- NULL
-speciesnames_absent <- subset(speciesnames_absent, N_detections == 0)
+speciesnames_absent <- as.data.frame(count(speciesnames_absent, Artsnavn, sort = TRUE))
+names(speciesnames_absent)[names(speciesnames_absent) == "n"] <- "N_detections"
 summary(speciesnames_absent$Artsnavn)
 
-data_REDUCED <- subset(data_ALL, Artsnavn %!in% speciesnames_absent$Artsnavn)
+data_REDUCED <- subset(data_ALL, Artsnavn %in% speciesnames_absent$Artsnavn)
 summary(data_REDUCED$Artsnavn)
 
 write.csv(data_REDUCED, "data_REDUCED.csv")
@@ -82,25 +79,25 @@ nrow(subset(data_STBT, Antal_stk != 0)) #1136 observations, so approx 90% zeros
 #      Gammarus sp.
 #      Gammarus inaequicauda
 #      Melita palmata
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Corophium volutator', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Melita palmata', 'Amphipoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Corophium volutator', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Melita palmata', 'Amphipoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Corophium volutator', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Melita palmata', 'Amphipoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Microdeutopus gryllotalpa', 'Amphipoda', NULL)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Gammarus salinus', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Corophium insidiosum', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Gammarus locusta', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Corophium volutator', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Ampithoe rubricata', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Gammarus sp.', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Gammarus inaequicauda', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Melita palmata', 'Amphipoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # II. Isopoda (Order) ----
@@ -115,19 +112,19 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Melita palmata', 'Amp
 #      Cyathura carinata
 #      Sphaeroma hookeri
 #      Idotea chelipes
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Idotea viridis', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Idotea balthica', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Jaera albifrons', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Cyathura carinata', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Sphaeroma hookeri', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Idotea chelipes', 'Isopoda', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Idotea viridis', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Idotea balthica', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Jaera albifrons', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Cyathura carinata', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Sphaeroma hookeri', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Idotea chelipes', 'Isopoda', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Idotea viridis', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Idotea balthica', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Jaera albifrons', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cyathura carinata', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Sphaeroma hookeri', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Idotea chelipes', 'Isopoda', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Idotea viridis', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Idotea balthica', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Jaera albifrons', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Cyathura carinata', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Sphaeroma hookeri', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Idotea chelipes', 'Isopoda', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # III. Littorinimorpha (small) (Order) ----
@@ -143,21 +140,21 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Idotea chelipes', 'Is
 #      Potamopyrgus antipodarum
 #      Rissoa sp.
 
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Hydrobia sp.', 'Littorinimorpha (small)', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Hydrobia ventrosa', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Pusillina sarsi', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Hydrobia ulvae', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Rissoa membranacea', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Potamopyrgus antipodarum', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Rissoa sp.', 'Littorinimorpha (small)', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # IV. Littorinimorpha (large) (Order) ----
@@ -166,9 +163,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Rissoa sp.', 'Littori
 
 # - Consists of species/id groups
 #      Littorina saxatilis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Littorina saxatilis', 'Littorinimorpha (large)', data_STBT$TaxaGroup)
 
 
 # V. Lymnaeidae (Family) ----
@@ -180,11 +177,11 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Littorina saxatilis',
 # - Consists of species/id groups
 #      Lymnaea sp.
 #      Radix peregra
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Lymnaea sp.', 'Lymnaeidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Radix peregra', 'Lymnaeidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Lymnaea sp.', 'Lymnaeidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Radix peregra', 'Lymnaeidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Lymnaea sp.', 'Lymnaeidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Radix peregra', 'Lymnaeidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Lymnaea sp.', 'Lymnaeidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Radix peregra', 'Lymnaeidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # VI. Neritidae [Family] ----
@@ -195,9 +192,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Radix peregra', 'Lymn
 
 # - Consists of species/id groups
 #      Theodoxus fluviatilis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Theodoxus fluviatilis', 'Neritidae', data_STBT$TaxaGroup)
 
 
 # VII. Cardiidae,[Family] ----
@@ -210,15 +207,15 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Theodoxus fluviatilis
 #      Parvicardium exiguum
 #      Parvicardium hauniense
 #      Cerastoderma edule
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Cerastoderma glaucum', 'Cardiidae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Parvicardium exiguum', 'Cardiidae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Parvicardium hauniense', 'Cardiidae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Cerastoderma edule', 'Cardiidae', data_STBT$TaxaGroup)
 
 
 # VIII. Mytilidae [Family] ----
@@ -228,9 +225,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Cerastoderma edule', 
 
 # - Consists of species/id groups
 #      Mytilus edulis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Mytilus edulis', 'Mytilidae', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Mytilus edulis', 'Mytilidae', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Mytilus edulis', 'Mytilidae', data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Mytilus edulis', 'Mytilidae', data_STBT$TaxaGroup)
 
 
 # IX. Tellinidae [Family] ----
@@ -240,9 +237,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Mytilus edulis', 'Myt
 
 # - Consists of species/id groups
 #      Macoma balthica
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Macoma balthica', 'Tellinidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Macoma balthica', 'Tellinidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Macoma balthica', 'Tellinidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Macoma balthica', 'Tellinidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # X. Myidae [Family] ----
@@ -252,9 +249,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Macoma balthica', 'Te
 
 # - Consists of species/id groups
 #      Mya arenaria
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Mya arenaria', 'Myidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Mya arenaria', 'Myidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Mya arenaria', 'Myidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Mya arenaria', 'Myidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XI. Nereididae [Family] ----
@@ -267,15 +264,15 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Mya arenaria', 'Myida
 #      Hediste diversicolor
 #      Platynereis dumerilii
 #      Neanthes virens
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Nereididae indet.', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Neanthes virens', 'Nereididae', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Nereididae indet.', 'Nereididae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Neanthes virens', 'Nereididae', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Nereididae indet.', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Neanthes virens', 'Nereididae', data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Nereididae indet.', 'Nereididae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Hediste diversicolor', 'Nereididae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Platynereis dumerilii', 'Nereididae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Neanthes virens', 'Nereididae', data_STBT$TaxaGroup)
 
 
 
@@ -289,15 +286,15 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Neanthes virens', 'Ne
 #      Pygospio elegans
 #      Spionidae indet.
 #      Marenzelleria viridis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Polydora cornuta', 'Spionidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Pygospio elegans', 'Spionidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Spionidae indet.', 'Spionidae', data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionidae', data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Polydora cornuta', 'Spionidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Pygospio elegans', 'Spionidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Spionidae indet.', 'Spionidae', data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionidae', data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Polydora cornuta', 'Spionidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Pygospio elegans', 'Spionidae', data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Spionidae indet.', 'Spionidae', data_STBT$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionidae', data_GULD$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Polydora cornuta', 'Spionidae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Pygospio elegans', 'Spionidae', data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Spionidae indet.', 'Spionidae', data_STBT$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis', 'Spionidae', data_GULD$TaxaGroup)
 
 
 # XIII. Capitellidae [Family] ----
@@ -306,9 +303,9 @@ data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Marenzelleria viridis
 
 # - Consists of species/id groups
 #      Heteromastus filiformis
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Heteromastus filiformis', 'Capitellidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Heteromastus filiformis', 'Capitellidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Heteromastus filiformis', 'Capitellidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Heteromastus filiformis', 'Capitellidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XIV. Orbiniidae [Family] ----
@@ -317,9 +314,9 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Heteromastus filiform
 
 # - Consists of species/id groups
 #      Scoloplos armiger
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Scoloplos armiger', 'Orbiniidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Scoloplos armiger', 'Orbiniidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Scoloplos armiger', 'Orbiniidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Scoloplos armiger', 'Orbiniidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XV. Sabellida [Order] ----
@@ -332,15 +329,15 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Scoloplos armiger', '
 #      Fabriciinae indet.
 #      Fabricia stellaris
 #      Spirorbis sp.
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Manayunkia aestuarina', 'Sabellida', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Fabriciinae indet.', 'Sabellida', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Fabricia stellaris', 'Sabellida', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Spirorbis sp.', 'Sabellida', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Manayunkia aestuarina', 'Sabellida', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Fabriciinae indet.', 'Sabellida', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Fabricia stellaris', 'Sabellida', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Spirorbis sp.', 'Sabellida', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Manayunkia aestuarina', 'Sabellida', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Fabriciinae indet.', 'Sabellida', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Fabricia stellaris', 'Sabellida', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Spirorbis sp.', 'Sabellida', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Manayunkia aestuarina', 'Sabellida', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Fabriciinae indet.', 'Sabellida', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Fabricia stellaris', 'Sabellida', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Spirorbis sp.', 'Sabellida', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XVI. Tubificidae [Family] ----
@@ -354,13 +351,13 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Spirorbis sp.', 'Sabe
 #      Tubificoides benedii
 #      Oligochaeta indet.
 #      Tubifex costatus
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Tubificoides benedii', 'Tubificidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Oligochaeta indet.', 'Tubificidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Tubifex costatus', 'Tubificidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Tubificoides benedii', 'Tubificidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Oligochaeta indet.', 'Tubificidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Tubifex costatus', 'Tubificidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Tubificoides benedii', 'Tubificidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Oligochaeta indet.', 'Tubificidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Tubifex costatus', 'Tubificidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Tubificoides benedii', 'Tubificidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Oligochaeta indet.', 'Tubificidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Tubifex costatus', 'Tubificidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XVII. Chironomidae [Family] ----
@@ -373,15 +370,15 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Tubifex costatus', 'T
 #      Chironomus sp.
 #      CHIRONOMIDAE
 #      Procladius sp.
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Chironomidae indet.', 'Chironomidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Chironomus sp.', 'Chironomidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'CHIRONOMIDAE', 'Chironomidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Procladius sp.', 'Chironomidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Chironomidae indet.', 'Chironomidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Chironomus sp.', 'Chironomidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'CHIRONOMIDAE', 'Chironomidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Procladius sp.', 'Chironomidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Chironomidae indet.', 'Chironomidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Chironomus sp.', 'Chironomidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'CHIRONOMIDAE', 'Chironomidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Procladius sp.', 'Chironomidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Chironomidae indet.', 'Chironomidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Chironomus sp.', 'Chironomidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'CHIRONOMIDAE', 'Chironomidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Procladius sp.', 'Chironomidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XVIII. Chrysomelidae [Family] ----
@@ -391,30 +388,30 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Procladius sp.', 'Chi
 
 # - Consists of species/id groups
 #      Macroplea mutica 
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Macroplea mutica', 'Chrysomelidae', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Macroplea mutica', 'Chrysomelidae', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Macroplea mutica', 'Chrysomelidae', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Macroplea mutica', 'Chrysomelidae', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XIX. Bryozoa [Phylum] ----
 
 # - Consists of species/id groups
 #      Electra crustulenta (within Class Gymnolaemata, Order Cheilostomatida)
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Electra crustulenta', 'Bryozoa', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Electra crustulenta', 'Bryozoa', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Electra crustulenta', 'Bryozoa', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Electra crustulenta', 'Bryozoa', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
 # XX. Nemertea [Phylum] ----
 
 # - Consists of species/id groups
 #      Nemertini indet.
-data_GULD$Artsgruppering <- if_else(data_GULD$Artsnavn == 'Nemertini indet.', 'Nemertea', data_GULD$Artsgruppering <- data_GULD$Artsgruppering)
+data_GULD$TaxaGroup <- if_else(data_GULD$Artsnavn == 'Nemertini indet.', 'Nemertea', data_GULD$TaxaGroup <- data_GULD$TaxaGroup)
 
-data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Nemertini indet.', 'Nemertea', data_STBT$Artsgruppering <- data_STBT$Artsgruppering)
+data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Nemertini indet.', 'Nemertea', data_STBT$TaxaGroup <- data_STBT$TaxaGroup)
 
 
-# Taxa groups in Novana data not included in one of these taxanomic groups ----
+# Taxa groups detected in Novana data not included in one of these taxanomic groups ----
 # (note: not included as taxa appear in <5% of cores, and cannot be combined into family/ order group to include in analysis)
 #   Arenicola marina
 #   Tanaidacea indet.
@@ -430,172 +427,161 @@ data_STBT$Artsgruppering <- if_else(data_STBT$Artsnavn == 'Nemertini indet.', 'N
 #   Rhithropanopeus harrisii
 #   Trichoptera indet.
 
+#*additional taxa not detected at all were also excluded
 
 #Checking it has worked
-summary(as.factor(data_GULD$Artsgruppering))
-summary(as.factor(data_STBT$Artsgruppering))
+summary(as.factor(data_GULD$TaxaGroup))
+summary(as.factor(data_STBT$TaxaGroup))
 
 write.csv(data_GULD, "data_GULD.csv")
 write.csv(data_STBT, "data_STBT.csv")
 
 
 ## Creating grouped dataframe ----
-data_GULD.taxa1 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Amphipoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa1$Artsgruppering <- "Amphipoda"
+data_GULD.taxa1 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Amphipoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa1$TaxaGroup <- "Amphipoda"
 
-data_GULD.taxa2 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Isopoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa2$Artsgruppering <- "Isopoda"
+data_GULD.taxa2 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Isopoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa2$TaxaGroup <- "Isopoda"
 
-data_GULD.taxa3 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Littorinimorpha (small)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa3$Artsgruppering <- "Littorinimorpha (small)"
+data_GULD.taxa3 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Littorinimorpha (small)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa3$TaxaGroup <- "Littorinimorpha (small)"
 
-data_GULD.taxa4 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Littorinimorpha (large)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa4$Artsgruppering <- "Littorinimorpha (large)"
+data_GULD.taxa4 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Littorinimorpha (large)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa4$TaxaGroup <- "Littorinimorpha (large)"
 
-data_GULD.taxa5 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Lymnaeidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa5$Artsgruppering <- "Lymnaeidae"
+data_GULD.taxa5 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Lymnaeidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa5$TaxaGroup <- "Lymnaeidae"
 
-data_GULD.taxa6 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Neritidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa6$Artsgruppering <- "Neritidae"
+data_GULD.taxa6 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Neritidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa6$TaxaGroup <- "Neritidae"
 
-data_GULD.taxa7 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Cardiidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa7$Artsgruppering <- "Cardiidae"
+data_GULD.taxa7 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Cardiidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa7$TaxaGroup <- "Cardiidae"
 
-data_GULD.taxa8 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Mytilidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa8$Artsgruppering <- "Mytilidae"
+data_GULD.taxa8 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Mytilidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa8$TaxaGroup <- "Mytilidae"
 
-data_GULD.taxa9 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Tellinidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa9$Artsgruppering <- "Tellinidae"
+data_GULD.taxa9 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Tellinidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa9$TaxaGroup <- "Tellinidae"
 
-data_GULD.taxa10 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Myidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa10$Artsgruppering <- "Myidae"
+data_GULD.taxa10 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Myidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa10$TaxaGroup <- "Myidae"
 
-data_GULD.taxa11 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Nereididae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa11$Artsgruppering <- "Nereididae"
+data_GULD.taxa11 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Nereididae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa11$TaxaGroup <- "Nereididae"
 
-data_GULD.taxa12 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Spionidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa12$Artsgruppering <- "Spionidae"
+data_GULD.taxa12 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Spionidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa12$TaxaGroup <- "Spionidae"
 
-data_GULD.taxa13 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Capitellidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa13$Artsgruppering <- "Capitellidae"
+data_GULD.taxa13 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Capitellidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa13$TaxaGroup <- "Capitellidae"
 
-data_GULD.taxa14 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Orbiniidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa14$Artsgruppering <- "Orbiniidae"
+data_GULD.taxa14 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Orbiniidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa14$TaxaGroup <- "Orbiniidae"
 
-data_GULD.taxa15 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Sabellida'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa15$Artsgruppering <- "Sabellida"
+data_GULD.taxa15 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Sabellida'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa15$TaxaGroup <- "Sabellida"
 
-data_GULD.taxa16 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Tubificidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa16$Artsgruppering <- "Tubificidae"
+data_GULD.taxa16 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Tubificidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa16$TaxaGroup <- "Tubificidae"
 
-data_GULD.taxa17 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Chironomidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa17$Artsgruppering <- "Chironomidae"
+data_GULD.taxa17 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Chironomidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa17$TaxaGroup <- "Chironomidae"
 
-data_GULD.taxa18 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Chrysomelidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa18$Artsgruppering <- "Chrysomelidae"
+data_GULD.taxa18 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Chrysomelidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa18$TaxaGroup <- "Chrysomelidae"
 
-data_GULD.taxa19 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Bryozoa'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa19$Artsgruppering <- "Bryozoa"
+data_GULD.taxa19 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Bryozoa'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa19$TaxaGroup <- "Bryozoa"
 
-data_GULD.taxa20 <- as.data.frame(setDT(subset(data_GULD, Artsgruppering == 'Nemertea'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_GULD.taxa20$Artsgruppering <- "Nemertea"
+data_GULD.taxa20 <- as.data.frame(setDT(subset(data_GULD, TaxaGroup == 'Nemertea'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_GULD.taxa20$TaxaGroup <- "Nemertea"
 
-
-#Creating dataset for analysis using the original 8 groupings
-data_GULDgrouped <- rbind(data_GULD.taxa1, data_GULD.taxa3, data_GULD.taxa4, data_GULD.taxa6,
-                          data_GULD.taxa7, data_GULD.taxa8, data_GULD.taxa11, data_GULD.taxa12)        )
-data_GULDgrouped$BA <- with(data_GULDgrouped, ifelse(Year < 2011, "aBefore","bAfter" ))
 
 #Creating dataset for analysis using the all 20 groupings
-data_GULDgrouped2 <- rbind(data_GULD.taxa1, data_GULD.taxa2, data_GULD.taxa3, data_GULD.taxa4,
+data_GULDgrouped <- rbind(data_GULD.taxa1, data_GULD.taxa2, data_GULD.taxa3, data_GULD.taxa4,
                           data_GULD.taxa5, data_GULD.taxa6, data_GULD.taxa7, data_GULD.taxa8,
                           data_GULD.taxa9, data_GULD.taxa10, data_GULD.taxa11, data_GULD.taxa12,
                           data_GULD.taxa13, data_GULD.taxa14, data_GULD.taxa15, data_GULD.taxa16,
                           data_GULD.taxa17, data_GULD.taxa18, data_GULD.taxa19, data_GULD.taxa20)
-data_GULDgrouped2$BA <- with(data_GULDgrouped2, ifelse(Year < 2011, "aBefore","bAfter" ))
+data_GULDgrouped$BA <- with(data_GULDgrouped, ifelse(Year < 2011, "aBefore","bAfter" ))
 
 write.csv(data_GULDgrouped, "data_GULDgrouped.csv")
-write.csv(data_GULDgrouped2, "data_GULDgrouped2.csv")
 
 
 
 
-data_STBT.taxa1 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Amphipoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa1$Artsgruppering <- "Amphipoda"
+data_STBT.taxa1 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Amphipoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa1$TaxaGroup <- "Amphipoda"
 
-data_STBT.taxa2 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Isopoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa2$Artsgruppering <- "Isopoda"
+data_STBT.taxa2 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Isopoda'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa2$TaxaGroup <- "Isopoda"
 
-data_STBT.taxa3 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Littorinimorpha (small)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa3$Artsgruppering <- "Littorinimorpha (small)"
+data_STBT.taxa3 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Littorinimorpha (small)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa3$TaxaGroup <- "Littorinimorpha (small)"
 
-data_STBT.taxa4 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Littorinimorpha (large)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa4$Artsgruppering <- "Littorinimorpha (large)"
+data_STBT.taxa4 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Littorinimorpha (large)'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa4$TaxaGroup <- "Littorinimorpha (large)"
 
-data_STBT.taxa5 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Lymnaeidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa5$Artsgruppering <- "Lymnaeidae"
+data_STBT.taxa5 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Lymnaeidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa5$TaxaGroup <- "Lymnaeidae"
 
-data_STBT.taxa6 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Neritidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa6$Artsgruppering <- "Neritidae"
+data_STBT.taxa6 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Neritidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa6$TaxaGroup <- "Neritidae"
 
-data_STBT.taxa7 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Cardiidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa7$Artsgruppering <- "Cardiidae"
+data_STBT.taxa7 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Cardiidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa7$TaxaGroup <- "Cardiidae"
 
-data_STBT.taxa8 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Mytilidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa8$Artsgruppering <- "Mytilidae"
+data_STBT.taxa8 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Mytilidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa8$TaxaGroup <- "Mytilidae"
 
-data_STBT.taxa9 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Tellinidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa9$Artsgruppering <- "Tellinidae"
+data_STBT.taxa9 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Tellinidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa9$TaxaGroup <- "Tellinidae"
 
-data_STBT.taxa10 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Myidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa10$Artsgruppering <- "Myidae"
+data_STBT.taxa10 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Myidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa10$TaxaGroup <- "Myidae"
 
-data_STBT.taxa11 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Nereididae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa11$Artsgruppering <- "Nereididae"
+data_STBT.taxa11 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Nereididae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa11$TaxaGroup <- "Nereididae"
 
-data_STBT.taxa12 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Spionidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa12$Artsgruppering <- "Spionidae"
+data_STBT.taxa12 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Spionidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa12$TaxaGroup <- "Spionidae"
 
-data_STBT.taxa13 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Capitellidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa13$Artsgruppering <- "Capitellidae"
+data_STBT.taxa13 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Capitellidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa13$TaxaGroup <- "Capitellidae"
 
-data_STBT.taxa14 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Orbiniidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa14$Artsgruppering <- "Orbiniidae"
+#data_STBT.taxa14 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Orbiniidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+#data_STBT.taxa14$TaxaGroup <- "Orbiniidae" #excluded as not detected at STBT
 
-data_STBT.taxa15 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Sabellida'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa15$Artsgruppering <- "Sabellida"
+data_STBT.taxa15 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Sabellida'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa15$TaxaGroup <- "Sabellida"
 
-data_STBT.taxa16 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Tubificidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa16$Artsgruppering <- "Tubificidae"
+data_STBT.taxa16 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Tubificidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa16$TaxaGroup <- "Tubificidae"
 
-data_STBT.taxa17 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Chironomidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa17$Artsgruppering <- "Chironomidae"
+data_STBT.taxa17 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Chironomidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa17$TaxaGroup <- "Chironomidae"
 
-data_STBT.taxa18 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Chrysomelidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa18$Artsgruppering <- "Chrysomelidae"
+data_STBT.taxa18 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Chrysomelidae'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa18$TaxaGroup <- "Chrysomelidae"
 
-data_STBT.taxa19 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Bryozoa'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa19$Artsgruppering <- "Bryozoa"
+data_STBT.taxa19 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Bryozoa'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa19$TaxaGroup <- "Bryozoa"
 
-data_STBT.taxa20 <- as.data.frame(setDT(subset(data_STBT, Artsgruppering == 'Nemertea'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
-data_STBT.taxa20$Artsgruppering <- "Nemertea"
+data_STBT.taxa20 <- as.data.frame(setDT(subset(data_STBT, TaxaGroup == 'Nemertea'))[ , list(Count = sum(Antal_stk), Year = mean(year)), by = .(SampleID)])
+data_STBT.taxa20$TaxaGroup <- "Nemertea"
 
-
-#Creating dataset for analysis using the original 8 groupings
-data_STBTgrouped <- rbind(data_STBT.taxa1, data_STBT.taxa3, data_STBT.taxa4, data_STBT.taxa6,
-                          data_STBT.taxa7, data_STBT.taxa8, data_STBT.taxa11, data_STBT.taxa12)
-data_STBTgrouped$BA <- with(data_STBTgrouped, ifelse(Year < 2013, "aBefore","bAfter" ))
 
 #Creating dataset for analysis using the all 20 groupings
-data_STBTgrouped2 <- rbind(data_STBT.taxa1, data_STBT.taxa2, data_STBT.taxa3, data_STBT.taxa4,
+data_STBTgrouped <- rbind(data_STBT.taxa1, data_STBT.taxa2, data_STBT.taxa3, data_STBT.taxa4,
                            data_STBT.taxa5, data_STBT.taxa6, data_STBT.taxa7, data_STBT.taxa8,
                            data_STBT.taxa9, data_STBT.taxa10, data_STBT.taxa11, data_STBT.taxa12,
-                           data_STBT.taxa13, data_STBT.taxa14, data_STBT.taxa15, data_STBT.taxa16,
+                           data_STBT.taxa13, data_STBT.taxa15, data_STBT.taxa16,
                            data_STBT.taxa17, data_STBT.taxa18, data_STBT.taxa19, data_STBT.taxa20)
-data_STBTgrouped2$BA <- with(data_STBTgrouped2, ifelse(Year < 2013, "aBefore","bAfter" ))
+data_STBTgrouped$BA <- with(data_STBTgrouped, ifelse(Year < 2013, "aBefore","bAfter" ))
 
 write.csv(data_STBTgrouped, "data_STBTgrouped.csv")
-write.csv(data_STBTgrouped2, "data_STBTgrouped2.csv")
 
 
 

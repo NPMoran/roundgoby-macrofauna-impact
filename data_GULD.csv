@@ -1,4 +1,4 @@
-"","X","Vandområde","Lokalitetsnavn","Dato","ODA_prøvenummer","ObsSted_bredde","ObsSted_længde","Artsnavn","Artsrække","Antal_stk","Biomasse_vådvægt_g","year","SampleID","Artsgruppering"
+"","X","Vandområde","Lokalitetsnavn","Dato","ODA_prøvenummer","ObsSted_bredde","ObsSted_længde","Artsnavn","Artsrække","Antal_stk","Biomasse_vådvægt_g","year","SampleID","TaxaGroup"
 "1",81,"Guldborgsund","Guldborg Sund Bredning","23/05/2007",3,5442.429,1151.764,"Scoloplos armiger","Ej kendt",0,0,2007,"2007_3","Orbiniidae"
 "2",82,"Guldborgsund","Guldborg Sund Bredning","23/05/2007",6,5442.429,1151.764,"Scoloplos armiger","Ej kendt",0,0,2007,"2007_6","Orbiniidae"
 "3",83,"Guldborgsund","Guldborg Sund Bredning","23/05/2007",9,5442.429,1151.764,"Scoloplos armiger","Ej kendt",0,0,2007,"2007_9","Orbiniidae"
