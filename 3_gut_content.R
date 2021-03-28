@@ -89,10 +89,10 @@ write.csv(data_GutPercentagesGULD, "data_GutPercentagesGULD.csv")
 ##BRMS gut content test ----
 data_GULDgrouped <- read.csv("data_GULDgrouped.csv", strip.white=TRUE)
 data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (small)', 'Preferred', 'NonPreferred')
-data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (large)', 'Preferred', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
-data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Neritidae', 'Preferred', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
-data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Cardiidae', 'Preferred', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
-data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Isopoda', 'Preferred', data_GULDgrouped2$GutPresence <- data_GULDgrouped2$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (large)', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Neritidae', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Cardiidae', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Isopoda', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
 
 
 #Preliminary model specifications
@@ -122,7 +122,7 @@ save(GULD.brms.guttest.negbinom_Preferred, file = "./models/GULD.brms.guttest.ne
 data=data_GULDgrouped2_NonPreferred <- subset(data_GULDgrouped, GutPresence == 'NonPreferred')
 
 GULD.brms.guttest.negbinom_NonPreferred <- brm(Count ~
-                                     1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped2_Present, 
+                                     1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped2_NonPreferred, 
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)

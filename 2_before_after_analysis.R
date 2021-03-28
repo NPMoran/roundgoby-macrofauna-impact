@@ -38,7 +38,10 @@ GULD.brms.fulltaxa.negbinom <- brm(Count ~
 #plot(GULD.brms.fulltaxa.negbinom)
 summary(GULD.brms.fulltaxa.negbinom)
 ranef(GULD.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
+fixef(GULD.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.fulltaxa.negbinom, ci = 0.95)
+
+save(GULD.brms.fulltaxa.negbinom, file = "./models/GULD.brms.fulltaxa.negbinom.RData")
 
 
 STBT.brms.fulltaxa.negbinom <- brm(Count ~
@@ -49,8 +52,8 @@ STBT.brms.fulltaxa.negbinom <- brm(Count ~
 #plot(STBT.brms.fulltaxa.negbinom)
 summary(STBT.brms.fulltaxa.negbinom)
 ranef(STBT.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
+fixef(STBT.brms.fulltaxa.negbinom, probs = c(0.05, 0.95))
 r2_bayes(STBT.brms.fulltaxa.negbinom, ci = 0.95)
 
-save(GULD.brms.fulltaxa.negbinom, file = "./models/GULD.brms.fulltaxa.negbinom.RData")
 save(STBT.brms.fulltaxa.negbinom, file = "./models/STBT.brms.fulltaxa.negbinom.RData")
 
