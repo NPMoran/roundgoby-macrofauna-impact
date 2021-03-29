@@ -99,7 +99,7 @@ ggsave("./visualisations/GULDFULLfig.jpg", width = 8, height = 16, units = "cm",
 
 
 
-#Figure 1b. Stege Bugt (FULL TAXA) ----
+## Figure 1b. Stege Bugt (FULL TAXA) ----
 working <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinom, probs = c(0.05, 0.95), groups = 'TaxaGroup'))
 
 #Building dataframe
@@ -169,4 +169,8 @@ STBTfig
 
 ggsave("./visualisations/STBTFULLfig.jpg", width = 8, height = 16, units = "cm", STBTfig, dpi = 600)
 
+
+
+
+## Figure 2a. Gut Content Qualitative Plot
 

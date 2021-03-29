@@ -6,7 +6,7 @@
 
 
 
-#### A1. Sensitivity Analysis -rerunning analysis using zero-inflated negbinomial models ####
+#### A1. Sensitivity Analysis -rerunning analysis alternate distributions ####
 
 Sys.setenv(LANG = "en")
 library(dplyr); library(brms); library(performance)
@@ -18,118 +18,131 @@ data_STBTgrouped <- read.csv("data_STBTgrouped.csv", strip.white=TRUE)
 data_GULDgrouped$Year <- as.factor(data_GULDgrouped$Year)
 data_STBTgrouped$Year <- as.factor(data_STBTgrouped$Year)
 
-data_GULDgrouped2 <- read.csv("data_GULDgrouped2.csv", strip.white=TRUE)
-data_STBTgrouped2 <- read.csv("data_STBTgrouped2.csv", strip.white=TRUE)
-
-data_GULDgrouped2$Year <- as.factor(data_GULDgrouped2$Year)
-data_STBTgrouped2$Year <- as.factor(data_STBTgrouped2$Year)
-
 
 ##BRMS full site models ----
 #preliminary model specifications
 adapt_delta_value <- 0.9999
 max_treedepth_value <- 20
-iterations <- 6000
-burnin <- 3000
+iterations <- 2000
+burnin <- 500
 thinning <- 2
 
-
-##One model per site, using original 8 taxonomic groups
-# - run using negative binomial model, and zero-inflated negative binomial model
-GULD.brms.origtaxa.zerinfnb <- brm(Count ~
-                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year), data=data_GULDgrouped, 
-                                   family = zero_inflated_negbinomial(),
-                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-#plot(GULD.brms.origtaxa.zerinfnb)
-summary(GULD.brms.origtaxa.zerinfnb)
-coef(GULD.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
-r2_bayes(GULD.brms.origtaxa.zerinfnb)
-
-
-STBT.brms.origtaxa.zerinfnb <- brm(Count ~
-                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year), data=data_STBTgrouped, 
-                                   family = zero_inflated_negbinomial(),
-                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-#plot(STBT.brms.origtaxa.zerinfnb)
-summary(STBT.brms.origtaxa.zerinfnb)
-coef(STBT.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
-r2_bayes(STBT.brms.origtaxa.zerinfnb)
-
-
-save(GULD.brms.origtaxa.zerinfnb, file = "./models/GULD.brms.origtaxa.zerinfnb.RData")
-
-save(STBT.brms.origtaxa.zerinfnb, file = "./models/STBT.brms.origtaxa.zerinfnb.RData")
-
-
-
-###Single model for both sites, using original 8 taxonomic groups
-## - run using zero-inflated negative binomial model
-#data_GULDgrouped$Site <- "GULD"
-#data_STBTgrouped$Site <- "STBT"
-#data_DUALgrouped <- rbind(data_GULDgrouped, data_STBTgrouped)
-#
-#DUAL.brms.origtaxa.zerinfnb <- brm(Count ~
-#                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped, 
-#                                   family = zero_inflated_negbinomial(),
-#                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-#                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-##plot(DUAL.brms.origtaxa.zerinfnb)
-#summary(DUAL.brms.origtaxa.zerinfnb)
-#coef(DUAL.brms.origtaxa.zerinfnb, probs = c(0.05, 0.95))
-#r2_bayes(DUAL.brms.origtaxa.zerinfnb)
-#
-#
-#save(DUAL.brms.origtaxa.zerinfnb, file = "./models/DUAL.brms.origtaxa.zerinfnb.RData")
-
-
-
-#One model per site, using updated 20 taxonomic groups
-# - run using zero-inflated negative binomial model
+## Zero-inflated negative binomial model ----
 GULD.brms.fulltaxa.zerinfnb <- brm(Count ~
-                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year), data=data_GULDgrouped2, 
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_GULDgrouped, 
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-plot(GULD.brms.fulltaxa.zerinfnb)
+#plot(GULD.brms.fulltaxa.zerinfnb)
 summary(GULD.brms.fulltaxa.zerinfnb)
-coef(GULD.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
-r2_bayes(GULD.brms.fulltaxa.zerinfnb)
+ranef(GULD.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
+fixef(GULD.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.fulltaxa.zerinfnb, ci = 0.95)
+
+save(GULD.brms.fulltaxa.zerinfnb, file = "./models/A1_sensitivity/GULD.brms.fulltaxa.zerinfnb.RData")
 
 
 STBT.brms.fulltaxa.zerinfnb <- brm(Count ~
-                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year), data=data_STBTgrouped2, 
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_STBTgrouped, 
                                    family = zero_inflated_negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(STBT.brms.fulltaxa.zerinfnb)
 summary(STBT.brms.fulltaxa.zerinfnb)
-coef(STBT.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
-r2_bayes(STBT.brms.fulltaxa.zerinfnb)
+ranef(STBT.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
+fixef(STBT.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
+r2_bayes(STBT.brms.fulltaxa.zerinfnb, ci = 0.95)
+
+save(STBT.brms.fulltaxa.zerinfnb, file = "./models/A1_sensitivity/STBT.brms.fulltaxa.zerinfnb.RData")
 
 
-save(GULD.brms.fulltaxa.zerinfnb, file = "./models/GULD.brms.fulltaxa.zerinfnb.RData")
-save(STBT.brms.fulltaxa.zerinfnb, file = "./models/STBT.brms.fulltaxa.zerinfnb.RData")
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (small)', 'Preferred', 'NonPreferred')
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (large)', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Neritidae', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Cardiidae', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data_GULDgrouped$GutPresence <- if_else(data_GULDgrouped$TaxaGroup == 'Isopoda', 'Preferred', data_GULDgrouped$GutPresence <- data_GULDgrouped$GutPresence)
+data=data_GULDgrouped_Preferred <- subset(data_GULDgrouped, GutPresence == 'Preferred')
+
+GULD.brms.guttest.zerinfnb_Preferred <- brm(Count ~
+                                              1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped_Preferred, 
+                                            family = zero_inflated_negbinomial(),
+                                            control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                            chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.zerinfnb_Preferred)
+summary(GULD.brms.guttest.zerinfnb_Preferred)
+fixef(GULD.brms.guttest.zerinfnb_Preferred, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttest.zerinfnb_Preferred, ci = 0.95)
+
+save(GULD.brms.guttest.zerinfnb_Preferred, file = "./models/A1_sensitivity/GULD.brms.guttest.zerinfnb_Preferred.RData")
 
 
+data=data_GULDgrouped2_NonPreferred <- subset(data_GULDgrouped, GutPresence == 'NonPreferred')
 
-##Single model for both sites, using updated 20 taxonomic groups
-## - run using negative binomial model, and zero-inflated negative binomial model
-#data_GULDgrouped2$Site <- "GULD"
-#data_STBTgrouped2$Site <- "STBT"
-#data_DUALgrouped2 <- rbind(data_GULDgrouped2, data_STBTgrouped2)
-#
-#DUAL.brms.fulltaxa.zerinfnb <- brm(Count ~
-#                                     1 + BA + (1 + BA|Artsgruppering) + (1|Year) + (1|Site), data=data_DUALgrouped2, 
-#                                   family = zero_inflated_negbinomial(),
-#                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
-#                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
-##plot(DUAL.brms.fulltaxa.zerinfnb)
-#summary(DUAL.brms.fulltaxa.zerinfnb)
-#coef(DUAL.brms.fulltaxa.zerinfnb, probs = c(0.05, 0.95))
-#r2_bayes(DUAL.brms.fulltaxa.zerinfnb)
-#
-#
-#save(DUAL.brms.fulltaxa.zerinfnb, file = "./models/DUAL.brms.fulltaxa.zerinfnb.RData")
+GULD.brms.guttest.zerinfnb_NonPreferred <- brm(Count ~
+                                                 1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped2_NonPreferred, 
+                                               family = zero_inflated_negbinomial(),
+                                               control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                               chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.zerinfnb_NonPreferred)
+summary(GULD.brms.guttest.zerinfnb_NonPreferred)
+fixef(GULD.brms.guttest.zerinfnb_NonPreferred, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttest.zerinfnb_NonPreferred, ci = 0.95)
+
+save(GULD.brms.guttest.zerinfnb_NonPreferred, file = "./models/A1_sensitivity/GULD.brms.guttest.zerinfnb_NonPreferred.RData")
+
+
+## Zero-Inflated Poisson Distribution
+GULD.brms.fulltaxa.zerinfps <- brm(Count ~
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_GULDgrouped, 
+                                   family = zero_inflated_poisson(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.fulltaxa.zerinfps)
+summary(GULD.brms.fulltaxa.zerinfps)
+ranef(GULD.brms.fulltaxa.zerinfps, probs = c(0.05, 0.95))
+fixef(GULD.brms.fulltaxa.zerinfps, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.fulltaxa.zerinfps, ci = 0.95)
+
+save(GULD.brms.fulltaxa.zerinfps, file = "./models/GULD.brms.fulltaxa.zerinfps.RData")
+
+
+STBT.brms.fulltaxa.zerinfps <- brm(Count ~
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_STBTgrouped, 
+                                   family = zero_inflated_poisson(),
+                                   control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                   chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(STBT.brms.fulltaxa.zerinfps)
+summary(STBT.brms.fulltaxa.zerinfps)
+ranef(STBT.brms.fulltaxa.zerinfps, probs = c(0.05, 0.95))
+fixef(STBT.brms.fulltaxa.zerinfps, probs = c(0.05, 0.95))
+r2_bayes(STBT.brms.fulltaxa.zerinfps, ci = 0.95)
+
+save(STBT.brms.fulltaxa.zerinfps, file = "./models/STBT.brms.fulltaxa.zerinfps.RData")
+
+
+GULD.brms.guttest.zerinfps_Preferred <- brm(Count ~
+                                              1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped_Preferred, 
+                                            family = zero_inflated_poisson(),
+                                            control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                            chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.zerinfps_Preferred)
+summary(GULD.brms.guttest.zerinfps_Preferred)
+fixef(GULD.brms.guttest.zerinfps_Preferred, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttest.zerinfps_Preferred, ci = 0.95)
+
+save(GULD.brms.guttest.zerinfps_Preferred, file = "./models/A1_sensitivity/GULD.brms.guttest.zerinfps_Preferred.RData")
+
+
+GULD.brms.guttest.zerinfps_NonPreferred <- brm(Count ~
+                                                 1 + BA + (BA|TaxaGroup) + (1|Year), data=data_GULDgrouped2_NonPreferred, 
+                                               family = zero_inflated_poisson(),
+                                               control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                               chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.zerinfps_NonPreferred)
+summary(GULD.brms.guttest.zerinfps_NonPreferred)
+fixef(GULD.brms.guttest.zerinfps_NonPreferred, probs = c(0.05, 0.95))
+r2_bayes(GULD.brms.guttest.zerinfps_NonPreferred, ci = 0.95)
+
+save(GULD.brms.guttest.zerinfps_NonPreferred, file = "./models/A1_sensitivity/GULD.brms.guttest.zerinfps_NonPreferred.RData")
+
 
