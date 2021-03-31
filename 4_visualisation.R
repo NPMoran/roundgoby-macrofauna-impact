@@ -20,13 +20,13 @@ load("./models/STBT.brms.fulltaxa.negbinom.RData")
 
 
 ## Figure 1a. Guldborgsund (FULL TAXA) ----
-working <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom, probs = c(0.05, 0.95)))
+working <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom))
 
 #Building dataframe
 data_GULDfig <- NULL
 data_GULDfig$estimate <- working$TaxaGroup.Estimate.BAbAfter
-data_GULDfig$lower <- working$TaxaGroup.Q5.BAbAfter
-data_GULDfig$upper <- working$TaxaGroup.Q95.BAbAfter
+data_GULDfig$lower <- working$TaxaGroup.Q2.5.BAbAfter
+data_GULDfig$upper <- working$TaxaGroup.Q97.5.BAbAfter
 data_GULDfig$positions <- c(14.5, 1.0, 9.0, 23.5, 5.5, 
                             6.5, 13.5, 18.0, 17.0, 16.0, 
                             21.5, 22.5, 4.0, 11.0, 19.0, 
@@ -74,7 +74,7 @@ data_GULDfig <- as.data.frame(data_GULDfig)
 
 #Plotting
 GULDfig <- ggplot(data_GULDfig, aes(x = estimate, y = positions)) +
-scale_x_continuous(limits = c(-10, 6), expand = c(0, 0), breaks=c(-5.0,-2.5,0.0,2.5,5.0)) +
+scale_x_continuous(limits = c(-11, 7), expand = c(0, 0), breaks=c(-5.0,-2.5,0.0,2.5,5.0)) +
 scale_y_continuous(limits = c(0.25, 25.75), expand = c(0, 0), breaks=NULL) +
 theme(legend.position = "none",
       axis.text.y = element_blank(), 
@@ -89,8 +89,8 @@ geom_point(aes(color = color), shape = 19, size = 1) +
 scale_color_brewer(palette = "Dark2") +
 geom_vline(xintercept = 0, linetype = 2, colour = "black", size = 0.5) +
 geom_hline(yintercept = c(2, 3.5, 5.0, 7.5, 13.0, 15.5, 20.0), linetype = 3, colour = "black", size = 0.25) +
-geom_text(aes(label=labels, fontface = 3), hjust = "left", x =-9.5, vjust=-1.8, size = 1.8) +
-geom_text(aes(label=BeforeAfter, fontface = 1), hjust = "left", x =-9.5, vjust=0.3, size = 1.8) +
+geom_text(aes(label=labels, fontface = 3), hjust = "left", x =-10.5, vjust=-1.4, size = 1.8) +
+geom_text(aes(label=BeforeAfter, fontface = 1), hjust = "left", x =-10.5, vjust=0.5, size = 1.8) +
 labs(x = "Before-after impact effect (Guldborgsund)",
      y = "") 
 GULDfig
@@ -100,13 +100,13 @@ ggsave("./visualisations/GULDFULLfig.jpg", width = 8, height = 16, units = "cm",
 
 
 ## Figure 1b. Stege Bugt (FULL TAXA) ----
-working <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinom, probs = c(0.05, 0.95), groups = 'TaxaGroup'))
+working <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_STBTfig <- NULL
 data_STBTfig$estimate <- working$TaxaGroup.Estimate.BAbAfter
-data_STBTfig$lower <- working$TaxaGroup.Q5.BAbAfter
-data_STBTfig$upper <- working$TaxaGroup.Q95.BAbAfter
+data_STBTfig$lower <- working$TaxaGroup.Q2.5.BAbAfter
+data_STBTfig$upper <- working$TaxaGroup.Q97.5.BAbAfter
 data_STBTfig$positions <- c(14.5, 1.0, 9.0, 23.5, 5.5, 
                             6.5, 13.5, 18.0, 17.0, 16.0, 
                             21.5, 22.5, 4.0, 11.0, 19.0, 
@@ -146,7 +146,7 @@ data_STBTfig <- as.data.frame(data_STBTfig)
 
 #Plotting
 STBTfig <- ggplot(data_STBTfig, aes(x = estimate, y = positions)) +
-  scale_x_continuous(limits = c(-10, 6), expand = c(0, 0), breaks=c(-5.0,-2.5,0.0,2.5,5.0)) +
+  scale_x_continuous(limits = c(-11, 7), expand = c(0, 0), breaks=c(-5.0,-2.5,0.0,2.5,5.0)) +
   scale_y_continuous(limits = c(0.25, 25.75), expand = c(0, 0), breaks=NULL) +
   theme(legend.position = "none",
         axis.text.y = element_blank(), 
@@ -161,8 +161,8 @@ STBTfig <- ggplot(data_STBTfig, aes(x = estimate, y = positions)) +
   scale_color_brewer(palette = "Dark2") +
   geom_vline(xintercept = 0, linetype = 2, colour = "black", size = 0.5) +
   geom_hline(yintercept = c(2, 3.5, 5.0, 7.5, 13.0, 15.5, 20.0), linetype = 3, colour = "black", size = 0.25) +
-  geom_text(aes(label=labels, fontface = 3), hjust = "left", x =-9.5, vjust=-1.8, size = 1.8) +
-  geom_text(aes(label=BeforeAfter, fontface = 1), hjust = "left", x =-9.5, vjust=0.3, size = 1.8) +
+  geom_text(aes(label=labels, fontface = 3), hjust = "left", x =-10.5, vjust=-1.4, size = 1.8) +
+  geom_text(aes(label=BeforeAfter, fontface = 1), hjust = "left", x =-10.5, vjust=0.5, size = 1.8) +
   labs(x = "Before-after impact effect (Stege Bugt)",
        y = "") 
 STBTfig
@@ -172,5 +172,74 @@ ggsave("./visualisations/STBTFULLfig.jpg", width = 8, height = 16, units = "cm",
 
 
 
-## Figure 2a. Gut Content Qualitative Plot
+## Figure 2a. Gut Content Qualitative Plot ----
+data_GutPercentagesGULD <- read.csv("data_GutPercentagesGULD.csv", strip.white=TRUE)
+data_GutPercentagesGULD$TaxaGroup <- ordered(data_GutPercentagesGULD$TaxaGroup, levels = c("Cardiidae", "Myidae", "Neritidae", 'Littorinimorpha (large)', "Littorinimorpha (small)", "Amphipoda", "Isopoda", "Other"))
+
+data_GutPercentagesGULD$labels <- round(data_GutPercentagesGULD$Percent_Occurence, digits = 1)
+data_GutPercentagesGULD <- transform(data_GutPercentagesGULD, labels = paste(labels, "", sep = "%"))
+data_GutPercentagesGULD$colors <- c("#7570B3","#7570B3","#1B9E77","#1B9E77","#D95F02","#D95F02","#D95F02","lightgrey")
+
+GutfigA<-ggplot(data_GutPercentagesGULD, aes(x=TaxaGroup, y=Percent_Occurence)) +
+  geom_bar(stat="identity", fill = data_GutPercentagesGULD$colors) +
+  geom_text(aes(label=labels, fontface = 3), vjust = -0.5, size = 2) +
+  scale_y_continuous(limits = c(0, 50), expand = c(0, 0)) +
+  theme(axis.text.x = element_text(size = 5.5, colour = "black", angle = 45, vjust = 1, hjust=1), 
+        axis.text.y = element_text(size = 5.5, colour = "black"), 
+        axis.title.y = element_text(colour = "black", size = 8),
+        axis.line.x = element_line(colour = "black", size = 0.5),
+        axis.line.y = element_line(colour = "black", size = 0.5),
+        panel.background = element_rect(fill = "white"),
+        panel.border = element_rect(colour = "white", fill=NA, size = 0.5)) + 
+  labs(x = "",
+     y = "Gut content (% occurence)") 
+  
+GutfigA
+
+ggsave("./visualisations/GutfigA.jpg", width = 9.5, height = 6.5, units = "cm", GutfigA, dpi = 600)
+
+
+## Figure 2a. Gut Content BA plot
+load('./models/GULD.brms.guttest.negbinom_Present.RData')
+load('./models/GULD.brms.guttest.negbinom_Absent.RData')
+load('./models/GULD.brms.guttest.negbinom_Preferred.RData')
+load('./models/GULD.brms.guttest.negbinom_NonPreferred.RData')
+
+working1 <- as.data.frame(fixef(GULD.brms.fulltaxa.negbinom, pars = 'BAbAfter'))
+working2 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Present, pars = 'BAbAfter'))
+working3 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Absent, pars = 'BAbAfter'))
+working4 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Preferred, pars = 'BAbAfter'))
+working5 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_NonPreferred, pars = 'BAbAfter'))
+working1$labels <- 'Full model'
+working2$labels <- 'Present'
+working3$labels <- 'Absent'
+working4$labels <- 'Preferred'
+working5$labels <- 'Non-preferred'
+
+GutfigB_dat <- rbind(working1,working2,working3,working4,working5) 
+GutfigB_dat$positions <- c(6 , 4.5, 3.5, 2, 1)
+
+#Plotting
+GutfigB <- ggplot(GutfigB_dat, aes(x = Estimate, y = positions)) +
+  scale_x_continuous(limits = c(-15, 7.5), expand = c(0, 0), breaks=c(-10.0,-5.0,0.0,5.0)) +
+  scale_y_continuous(limits = c(0.25, 6.75), expand = c(0, 0), breaks=NULL) +
+  theme(legend.position = "none",
+        axis.text.y = element_blank(), 
+        axis.ticks.y = element_blank(), 
+        axis.text.x = element_text(size = 5, colour = "black"), 
+        axis.line.x = element_line(colour = "black", size = 0.5),
+        panel.background = element_rect(fill = "white"),
+        axis.title.x  = element_text(size=8, vjust = 0.1),
+        panel.border = element_rect(colour = "black", fill=NA, size = 1)) +
+  geom_segment(x = GutfigB_dat$Q2.5, y = GutfigB_dat$positions, xend = GutfigB_dat$Q97.5, yend = GutfigB_dat$positions, size = 0.5) +
+  geom_point(shape = 19, size = 1) +
+  geom_vline(xintercept = 0, linetype = 2, colour = "black", size = 0.5) +
+  geom_hline(yintercept = c(3.0,5.5), linetype = 3, colour = "black", size = 0.25) + 
+  geom_text(aes(label=labels, fontface = 3), hjust = "left", x =-14.5, vjust=0.3, size = 1.8) +
+  labs(x = "Before-after impact effect (Guldborgsund)",
+     y = "") 
+GutfigB
+
+ggsave("./visualisations/GutfigB.jpg", width = 6.5, height = 5.2, units = "cm", GutfigB, dpi = 600)
+
 
