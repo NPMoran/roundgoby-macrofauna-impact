@@ -142,7 +142,7 @@ GULD.brms.guttest.zerinfps_NonPreferred <- brm(Count ~
 summary(GULD.brms.guttest.zerinfps_NonPreferred)
 fixef(GULD.brms.guttest.zerinfps_NonPreferred, probs = c(0.05, 0.95))
 r2_bayes(GULD.brms.guttest.zerinfps_NonPreferred, ci = 0.95)
-
+?r2_bayes
 save(GULD.brms.guttest.zerinfps_NonPreferred, file = "./models/A1_sensitivity/GULD.brms.guttest.zerinfps_NonPreferred.RData")
-
+bayes
 
