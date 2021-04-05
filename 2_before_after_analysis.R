@@ -31,7 +31,7 @@ thinning <- 2
 #One model per site, using updated 20 taxonomic groups
 # - run using negative binomial model, and zero-inflated negative binomial model
 GULD.brms.fulltaxa.negbinom <- brm(Count ~
-                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_GULDgrouped, 
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_GULDgrouped, 
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
@@ -45,7 +45,7 @@ save(GULD.brms.fulltaxa.negbinom, file = "./models/GULD.brms.fulltaxa.negbinom.R
 
 
 STBT.brms.fulltaxa.negbinom <- brm(Count ~
-                                     1 + BA + (1 + BA|TaxaGroup) + (1|Year), data=data_STBTgrouped, 
+                                     1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_STBTgrouped, 
                                    family = negbinomial(),
                                    control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                    chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)

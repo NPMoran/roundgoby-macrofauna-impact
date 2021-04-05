@@ -20,7 +20,7 @@ load("./models/STBT.brms.fulltaxa.negbinom.RData")
 
 
 ## Figure 1a. Guldborgsund (FULL TAXA) ----
-working <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom))
+working <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_GULDfig <- NULL
@@ -196,33 +196,27 @@ GutfigA<-ggplot(data_GutPercentagesGULD, aes(x=TaxaGroup, y=Percent_Occurence)) 
   
 GutfigA
 
-ggsave("./visualisations/GutfigA.jpg", width = 9.5, height = 6.5, units = "cm", GutfigA, dpi = 600)
+ggsave("./visualisations/GutfigA.jpg", width = 8, height = 6.5, units = "cm", GutfigA, dpi = 600)
 
 
 ## Figure 2a. Gut Content BA plot
 load('./models/GULD.brms.guttest.negbinom_Present.RData')
 load('./models/GULD.brms.guttest.negbinom_Absent.RData')
-load('./models/GULD.brms.guttest.negbinom_Preferred.RData')
-load('./models/GULD.brms.guttest.negbinom_NonPreferred.RData')
 
 working1 <- as.data.frame(fixef(GULD.brms.fulltaxa.negbinom, pars = 'BAbAfter'))
 working2 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Present, pars = 'BAbAfter'))
 working3 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Absent, pars = 'BAbAfter'))
-working4 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_Preferred, pars = 'BAbAfter'))
-working5 <- as.data.frame(fixef(GULD.brms.guttest.negbinom_NonPreferred, pars = 'BAbAfter'))
-working1$labels <- 'Full model'
+working1$labels <- 'All taxa'
 working2$labels <- 'Present'
 working3$labels <- 'Absent'
-working4$labels <- 'Preferred'
-working5$labels <- 'Non-preferred'
 
-GutfigB_dat <- rbind(working1,working2,working3,working4,working5) 
-GutfigB_dat$positions <- c(6 , 4.5, 3.5, 2, 1)
+GutfigB_dat <- rbind(working1,working2,working3) 
+GutfigB_dat$positions <- c(6 , 4.5, 3.5)
 
 #Plotting
 GutfigB <- ggplot(GutfigB_dat, aes(x = Estimate, y = positions)) +
   scale_x_continuous(limits = c(-15, 7.5), expand = c(0, 0), breaks=c(-10.0,-5.0,0.0,5.0)) +
-  scale_y_continuous(limits = c(0.25, 6.75), expand = c(0, 0), breaks=NULL) +
+  scale_y_continuous(limits = c(2.75, 6.75), expand = c(0, 0), breaks=NULL) +
   theme(legend.position = "none",
         axis.text.y = element_blank(), 
         axis.ticks.y = element_blank(), 
@@ -240,6 +234,6 @@ GutfigB <- ggplot(GutfigB_dat, aes(x = Estimate, y = positions)) +
      y = "") 
 GutfigB
 
-ggsave("./visualisations/GutfigB.jpg", width = 6.5, height = 5.2, units = "cm", GutfigB, dpi = 600)
+ggsave("./visualisations/GutfigB.jpg", width = 8, height = 4.0, units = "cm", GutfigB, dpi = 600)
 
 

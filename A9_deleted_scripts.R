@@ -1,5 +1,61 @@
 #Discarded code
 
+
+###############PREFERENCE TESTS#############
+
+
+
+#Preferred v Non-Preferred prey items (based on >5% occurent in gut content)
+data_GULDgrouped <- read.csv("data_GULDgrouped.csv", strip.white=TRUE)
+data_GULDgrouped$Preference <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (small)', 'Preferred', 'NonPreferred')
+data_GULDgrouped$Preference <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (large)', 'Preferred', data_GULDgrouped$Preference <- data_GULDgrouped$Preference)
+data_GULDgrouped$Preference <- if_else(data_GULDgrouped$TaxaGroup == 'Neritidae', 'Preferred', data_GULDgrouped$Preference <- data_GULDgrouped$Preference)
+data_GULDgrouped$Preference <- if_else(data_GULDgrouped$TaxaGroup == 'Cardiidae', 'Preferred', data_GULDgrouped$Preference <- data_GULDgrouped$Preference)
+
+data=data_GULDgrouped_Preferred <- subset(data_GULDgrouped, Preference == 'Preferred')
+
+GULD.brms.guttest.negbinom_Preferred <- brm(Count ~
+                                              1 + BA + (BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_GULDgrouped_Preferred, 
+                                            family = negbinomial(),
+                                            control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                            chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.negbinom_Preferred)
+summary(GULD.brms.guttest.negbinom_Preferred)
+fixef(GULD.brms.guttest.negbinom_Preferred)
+r2_bayes(GULD.brms.guttest.negbinom_Preferred, ci = 0.95)
+
+save(GULD.brms.guttest.negbinom_Preferred, file = "./models/GULD.brms.guttest.negbinom_Preferred.RData")
+
+
+data=data_GULDgrouped_NonPreferred <- subset(data_GULDgrouped, Preference == 'NonPreferred')
+
+GULD.brms.guttest.negbinom_NonPreferred <- brm(Count ~
+                                                 1 + BA + (BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_GULDgrouped_NonPreferred, 
+                                               family = negbinomial(),
+                                               control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                               chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.negbinom_NonPreferred)
+summary(GULD.brms.guttest.negbinom_NonPreferred)
+fixef(GULD.brms.guttest.negbinom_NonPreferred)
+r2_bayes(GULD.brms.guttest.negbinom_NonPreferred, ci = 0.95)
+
+save(GULD.brms.guttest.negbinom_NonPreferred, file = "./models/GULD.brms.guttest.negbinom_NonPreferred.RData")
+
+
+#Prey preference hypothesis testing ----
+GULD.brms.guttest.negbinom_PreferenceTEST <- brm(Count ~
+                                                   1 + BA*Preference + (BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_GULDgrouped, 
+                                                 family = negbinomial(),
+                                                 control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                                 chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.guttest.negbinom_PresenceTEST)
+summary(GULD.brms.guttest.negbinom_PreferenceTEST)
+fixef(GULD.brms.guttest.negbinom_PreferenceTEST)
+r2_bayes(GULD.brms.guttest.negbinom_PreferenceTEST, ci = 0.95)
+
+save(GULD.brms.guttest.negbinom_PreferenceTEST, file = "./models/GULD.brms.guttest.negbinom_PreferenceTEST2.RData")
+
+
 ###############DATA FOR ORIGINAL GROUPINGS#############
 #Creating dataset for analysis using the original 8 groupings
 data_GULDgrouped <- rbind(data_GULD.taxa1, data_GULD.taxa3, data_GULD.taxa4, data_GULD.taxa6,
