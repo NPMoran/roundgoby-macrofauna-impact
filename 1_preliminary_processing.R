@@ -35,7 +35,7 @@ summary(speciesnames_absent$Artsnavn)
 data_REDUCED <- subset(data_ALL, Artsnavn %in% speciesnames_absent$Artsnavn)
 summary(data_REDUCED$Artsnavn)
 
-write.csv(data_REDUCED, "data_REDUCED.csv")
+write.csv(data_REDUCED, "data_REDUCED.csv", row.names = FALSE)
 
 
 
@@ -433,8 +433,8 @@ data_STBT$TaxaGroup <- if_else(data_STBT$Artsnavn == 'Nemertini indet.', 'Nemert
 summary(as.factor(data_GULD$TaxaGroup))
 summary(as.factor(data_STBT$TaxaGroup))
 
-write.csv(data_GULD, "data_GULD.csv")
-write.csv(data_STBT, "data_STBT.csv")
+write.csv(data_GULD, "data_GULD.csv", row.names = FALSE)
+write.csv(data_STBT, "data_STBT.csv", row.names = FALSE)
 
 
 ## Creating grouped dataframe ----

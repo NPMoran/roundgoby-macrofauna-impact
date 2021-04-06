@@ -100,6 +100,8 @@ thinning <- 2
 
 
 #Presence-Absence in gut content only ----
+data_GULDgrouped <- read.csv("data_GULDgrouped.csv", strip.white=TRUE)
+
 data_GULDgrouped$Presence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (small)', 'Present', 'Absent')
 data_GULDgrouped$Presence <- if_else(data_GULDgrouped$TaxaGroup == 'Littorinimorpha (large)', 'Present', data_GULDgrouped$Presence <- data_GULDgrouped$Presence)
 data_GULDgrouped$Presence <- if_else(data_GULDgrouped$TaxaGroup == 'Neritidae', 'Present', data_GULDgrouped$Presence <- data_GULDgrouped$Presence)
