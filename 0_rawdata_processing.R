@@ -148,7 +148,7 @@ depth_Stbt <- subset(depth_Stbt, Depth_m !=  -99.0) #excluding error recording
 mean(depth_Stbt$Depth_m); sd(depth_Stbt$Depth_m)
 
 
-write.csv(red,"data_ALL2.csv", row.names = FALSE)
+write.csv(red,"data_ALL.csv", row.names = FALSE)
 
 
 
