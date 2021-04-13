@@ -22,13 +22,14 @@ data_STBTgrouped$Year <- as.factor(data_STBTgrouped$Year)
 data_GULDgroupedA2 <- subset(data_GULDgrouped, Year != "2015")
 data_STBTgroupedA2 <- subset(data_STBTgrouped, Year != "2015")
 
-##BRMS full site models ----
+
 #preliminary model specifications
 adapt_delta_value <- 0.9999
 max_treedepth_value <- 20
-iterations <- 1000
-burnin <- 200
+iterations <- 6000
+burnin <- 2000
 thinning <- 2
+
 
 
 #Excluding 2015
@@ -72,8 +73,8 @@ GULD.brms.fulltaxa.negbinomA2b <- brm(Count ~
                                      chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
 #plot(GULD.brms.fulltaxa.negbinomA2)
 summary(GULD.brms.fulltaxa.negbinomA2b)
+VarCorr(GULD.brms.fulltaxa.negbinomA2b)
 ranef(GULD.brms.fulltaxa.negbinomA2b)
-fixef(GULD.brms.fulltaxa.negbinomA2b)
 r2_bayes(GULD.brms.fulltaxa.negbinomA2b, ci = 0.95)
 
 save(GULD.brms.fulltaxa.negbinomA2b, file = "./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA2b.RData")
