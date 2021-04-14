@@ -5,7 +5,7 @@
 # Date: March 2021
 
 
-#### 2. Before-after effects using gut content data ####
+#### 3. Before-after effects using gut content data ####
 
 Sys.setenv(LANG = "en")
 library(dplyr); library(brms); library(performance)
