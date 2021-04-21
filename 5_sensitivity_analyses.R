@@ -93,6 +93,70 @@ r2_bayes(STBT.brms.fulltaxa.negbinomA2, ci = 0.95)
 save(STBT.brms.fulltaxa.negbinomA2, file = "./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA2.RData")
 
 
+#Using Month as a fixed effect
+GULD.brms.fulltaxa.negbinomA3 <- brm(Count ~
+                                       1 + BA + Month + (1 + BA + Month|TaxaGroup) + (1|SampleID) + (1|Year) , data=data_GULDgrouped, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.fulltaxa.negbinomA3)
+summary(GULD.brms.fulltaxa.negbinomA3)
+ranef(GULD.brms.fulltaxa.negbinomA3)
+fixef(GULD.brms.fulltaxa.negbinomA3)
+r2_bayes(GULD.brms.fulltaxa.negbinomA3, ci = 0.95)
+
+save(GULD.brms.fulltaxa.negbinomA3, file = "./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA3.RData")
+
+
+STBT.brms.fulltaxa.negbinomA3 <- brm(Count ~
+                                       1 + BA + Month + (1 + BA + Month|TaxaGroup) + (1|SampleID) + (1|Year), data=data_STBTgrouped, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(STBT.brms.fulltaxa.negbinomA3)
+summary(STBT.brms.fulltaxa.negbinomA3)
+ranef(STBT.brms.fulltaxa.negbinomA3)
+fixef(STBT.brms.fulltaxa.negbinomA3)
+r2_bayes(STBT.brms.fulltaxa.negbinomA3, ci = 0.95)
+
+save(STBT.brms.fulltaxa.negbinomA3, file = "./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA3.RData")
+
+
+
+#Alternate way of doing the above, using a taxa-specific month random effect.
+data_GULDgrouped$Month2 <- paste(data_GULDgrouped$Month, data_GULDgrouped$TaxaGroup, sep = '')
+data_STBTgrouped$Month2 <- paste(data_STBTgrouped$Month, data_STBTgrouped$TaxaGroup, sep = '')
+
+
+GULD.brms.fulltaxa.negbinomA4 <- brm(Count ~
+                                       1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year) + (1|Month2), data=data_GULDgrouped, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(GULD.brms.fulltaxa.negbinomA4)
+summary(GULD.brms.fulltaxa.negbinomA4)
+ranef(GULD.brms.fulltaxa.negbinomA4)
+fixef(GULD.brms.fulltaxa.negbinomA4)
+r2_bayes(GULD.brms.fulltaxa.negbinomA4, ci = 0.95)
+
+save(GULD.brms.fulltaxa.negbinomA4, file = "./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA4.RData")
+
+
+STBT.brms.fulltaxa.negbinomA4 <- brm(Count ~
+                                       1 + BA + Month + (1 + BA + Month|TaxaGroup) + (1|SampleID) + (1|Year) + (1|Month2), data=data_STBTgrouped, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
+#plot(STBT.brms.fulltaxa.negbinomA4)
+summary(STBT.brms.fulltaxa.negbinomA4)
+ranef(STBT.brms.fulltaxa.negbinomA4)
+fixef(STBT.brms.fulltaxa.negbinomA4)
+r2_bayes(STBT.brms.fulltaxa.negbinomA4, ci = 0.95)
+
+save(STBT.brms.fulltaxa.negbinomA4, file = "./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA4.RData")
+
+
+
 
 # Plotting comparison (Figure S2)
 load("./models/GULD.brms.fulltaxa.negbinom.RData")
@@ -105,7 +169,7 @@ load("./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA2.RData")
 
 working1 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 working2 <- as.data.frame(ranef(GULD.brms.fulltaxa.zerinfnb, groups = 'TaxaGroup'))
-working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinomA2, groups = 'TaxaGroup'))
+working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinomA4, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_SUPPfigA <- NULL
@@ -162,7 +226,7 @@ ggsave("./visualisations/SUPPfigA.jpg", width = 8, height = 16, units = "cm", SU
 
 working1 <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 working2 <- as.data.frame(ranef(STBT.brms.fulltaxa.zerinfnb, groups = 'TaxaGroup'))
-working3 <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinomA2, groups = 'TaxaGroup'))
+working3 <- as.data.frame(ranef(STBT.brms.fulltaxa.negbinomA4, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_SUPPfigB <- NULL
