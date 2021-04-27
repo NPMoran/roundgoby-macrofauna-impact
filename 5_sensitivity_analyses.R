@@ -143,7 +143,7 @@ save(GULD.brms.fulltaxa.negbinomA4, file = "./models/A2_sensitivity/GULD.brms.fu
 
 
 STBT.brms.fulltaxa.negbinomA4 <- brm(Count ~
-                                       1 + BA + Month + (1 + BA + Month|TaxaGroup) + (1|SampleID) + (1|Year) + (1|Month2), data=data_STBTgrouped, 
+                                       1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year) + (1|Month2), data=data_STBTgrouped, 
                                      family = negbinomial(),
                                      control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
                                      chains = 2, cores = 4, iter = iterations, warmup = burnin, thin = thinning)
@@ -156,6 +156,39 @@ r2_bayes(STBT.brms.fulltaxa.negbinomA4, ci = 0.95)
 save(STBT.brms.fulltaxa.negbinomA4, file = "./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA4.RData")
 
 
+#Models just deleting 2015
+data_GULDgrouped2015 <- subset(data_GULDgrouped, Year != 2015)
+data_STBTgrouped2015 <- subset(data_STBTgrouped, Year != 2015)
+GULD.brms.fulltaxa.negbinomA5 <- brm(Count ~
+                                       1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_GULDgrouped2015, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = 500, warmup = 200, thin = thinning)
+#plot(GULD.brms.fulltaxa.negbinomA5)
+summary(GULD.brms.fulltaxa.negbinomA5)
+ranef(GULD.brms.fulltaxa.negbinomA5)
+fixef(GULD.brms.fulltaxa.negbinomA5)
+r2_bayes(GULD.brms.fulltaxa.negbinomA5, ci = 0.95)
+
+save(GULD.brms.fulltaxa.negbinomA5, file = "./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA5.RData")
+
+
+STBT.brms.fulltaxa.negbinomA5 <- brm(Count ~
+                                       1 + BA + (1 + BA|TaxaGroup) + (1|SampleID) + (1|Year), data=data_STBTgrouped2015, 
+                                     family = negbinomial(),
+                                     control = list(adapt_delta = adapt_delta_value, max_treedepth = max_treedepth_value),
+                                     chains = 2, cores = 4, iter = 500, warmup = 200, thin = thinning)
+#plot(STBT.brms.fulltaxa.negbinomA5)
+summary(STBT.brms.fulltaxa.negbinomA5)
+ranef(STBT.brms.fulltaxa.negbinomA5)
+fixef(STBT.brms.fulltaxa.negbinomA5)
+r2_bayes(STBT.brms.fulltaxa.negbinomA5, ci = 0.95)
+
+save(STBT.brms.fulltaxa.negbinomA5, file = "./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA5.RData")
+
+
+
+
 
 
 # Plotting comparison (Figure S2)
@@ -163,13 +196,13 @@ load("./models/GULD.brms.fulltaxa.negbinom.RData")
 load("./models/STBT.brms.fulltaxa.negbinom.RData")
 load("./models/A1_sensitivity/GULD.brms.fulltaxa.zerinfnb.RData")
 load("./models/A1_sensitivity/STBT.brms.fulltaxa.zerinfnb.RData")
-load("./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA2.RData")
-load("./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA2.RData")
+load("./models/A2_sensitivity/GULD.brms.fulltaxa.negbinomA5.RData")
+load("./models/A2_sensitivity/STBT.brms.fulltaxa.negbinomA4.RData")
 
 
 working1 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 working2 <- as.data.frame(ranef(GULD.brms.fulltaxa.zerinfnb, groups = 'TaxaGroup'))
-working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinomA4, groups = 'TaxaGroup'))
+working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinomA5, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_SUPPfigA <- NULL
@@ -219,7 +252,7 @@ SUPPfigA <- ggplot(data_SUPPfigA, aes(x = estimate1, y = positions)) +
        y = "") 
 SUPPfigA
 
-ggsave("./visualisations/SUPPfigA.jpg", width = 8, height = 16, units = "cm", SUPPfigA, dpi = 600)
+ggsave("./visualisations/SUPPfigAxx.jpg", width = 8, height = 16, units = "cm", SUPPfigA, dpi = 600)
 
 
 
