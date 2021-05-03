@@ -97,7 +97,7 @@ load("./models/sensitivity/GULD.brms.fulltaxa.negbinom2015.RData")
 
 working1 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom, groups = 'TaxaGroup'))
 working2 <- as.data.frame(ranef(GULD.brms.fulltaxa.zerinfnb, groups = 'TaxaGroup'))
-working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinomA5, groups = 'TaxaGroup'))
+working3 <- as.data.frame(ranef(GULD.brms.fulltaxa.negbinom2015, groups = 'TaxaGroup'))
 
 #Building dataframe
 data_SUPPfigA <- NULL
